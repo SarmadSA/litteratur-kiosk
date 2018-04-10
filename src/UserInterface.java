@@ -239,7 +239,7 @@ public class UserInterface {
     }
 
     private void printAddOptionsMenu() {
-        System.out.print("Choose type of literature you want to add: \n 1.Book \n 2.Newspaper \n 3.Magazin \n 4.Booklet \n 5.any \n");
+        System.out.print("Choose type of literature you want to add: \n 1.Book \n 2.Newspaper \n 3.Magazin \n 4.Booklet \n");
     }
 
     private void addToRegister(){
@@ -254,10 +254,10 @@ public class UserInterface {
                 addNewspaperToRegister();
                 break;
             case 3:
-                //addMagazinToRegister();
+                addMagazineToRegister();
                 break;            
             case 4:
-                //addBookletToRegister();
+                addBookletToRegister();
                 break;
             default:
                 System.out.println("Unknown commend");
@@ -273,35 +273,35 @@ public class UserInterface {
         
         // Title
         System.out.println("1.Enter the title of the book:");
-        title = reader.next();
+        title = reader.nextLine();
         
         // Publisher
         System.out.println("2.Enter the publisher of the book:");
-        publisher = reader.next();
+        publisher = reader.nextLine();
         
         // Category
         System.out.println("3.Enter the catagory of the book:");
-        category = reader.next();
+        category = reader.nextLine();
         
         // Language
         System.out.println("4.Enter the language of the book:");
-        language = reader.next();
+        language = reader.nextLine();
 
         // Date of release
         System.out.println("5.Enter the Date of release of the book:");
-        dateOfRelease = reader.next();
-
-        // Number of pages
-        System.out.println("6.Enter number of pages of the book:");
-        numberOfPages = reader.nextInt();
+        dateOfRelease = reader.nextLine();
         
         // Version
-        System.out.println("7.Enter the version of the book:");
-        version = reader.next();
+        System.out.println("6.Enter the version of the book:");
+        version = reader.nextLine();
         
         // edition
         System.out.println("7.Enter the edition of the book:");
-        edition = reader.next();        
+        edition = reader.nextLine();
+        
+        // Number of pages
+        System.out.println("8.Enter number of pages of the book:");
+        numberOfPages = reader.nextInt(); // use nextline and convert string to int.
         
         this.register.addLiterature(new Book(title, publisher, category, language, dateOfRelease, version, edition, numberOfPages));
         System.out.println("Book: " + title + " has been added to register!");
@@ -319,33 +319,105 @@ public class UserInterface {
         
         // Title
         System.out.println("1.Enter the title of the newspaper:");
-        title = reader.next();
+        title = reader.nextLine();
         
         // Publisher
         System.out.println("2.Enter the publisher of the newspaper:");
-        publisher = reader.next();
-        
-        // Number of releases
-        System.out.println("3.Enter the number of releases each year of the newspaper:");
-        numberOfReleases = reader.nextInt();
+        publisher = reader.nextLine();
         
         // Category
-        System.out.println("4.Enter the catagory of the newspaper:");
-        category = reader.next();
+        System.out.println("3.Enter the catagory of the newspaper:");
+        category = reader.nextLine();
         
         // Language
-        System.out.println("5.Enter the language of the newspaper:");
-        language = reader.next();
+        System.out.println("4.Enter the language of the newspaper:");
+        language = reader.nextLine();
 
         // Date of release
-        System.out.println("6.Enter the Date of release of the newspaper:");
-        dateOfRelease = reader.next();
-
+        System.out.println("5.Enter the Date of release of the newspaper:");
+        dateOfRelease = reader.nextLine();
+        
+        // Number of releases
+        System.out.println("6.Enter the number of releases each year of the newspaper:");
+        numberOfReleases = reader.nextInt();
+        
         // Number of pages
         System.out.println("7.Enter number of pages of the newspaper:");
         numberOfPages = reader.nextInt();
         
         this.register.addLiterature(new Newspaper(numberOfReleases, title, publisher, category, language, dateOfRelease, numberOfPages));
         System.out.println("Newspaper: " + title + " has been added to register!");
+    }
+    
+    private void addMagazineToRegister(){
+        String title; String publisher; int numberOfReleases; String category; String language; String dateOfRelease; int numberOfPages;
+        System.out.println("To add a magazine to the register, you have to enter the number of releases, title, "
+                            + "publisher, catagory, language, date of release and number of pages of the magazine.");
+        Scanner reader = new Scanner(System.in);
+        
+        // Title
+        System.out.println("1.Enter the title of the magazine:");
+        title = reader.nextLine();
+        
+        // Publisher
+        System.out.println("2.Enter the publisher of the magazine:");
+        publisher = reader.nextLine();
+        
+        // Category
+        System.out.println("3.Enter the catagory of the magazine:");
+        category = reader.nextLine();
+        
+        // Language
+        System.out.println("4.Enter the language of the magazine:");
+        language = reader.nextLine();
+
+        // Date of release
+        System.out.println("5.Enter the Date of release of the magazine:");
+        dateOfRelease = reader.nextLine();
+        
+        // Number of releases
+        System.out.println("6.Enter the number of releases each year of the magazine:");
+        numberOfReleases = reader.nextInt();
+        
+        // Number of pages
+        System.out.println("7.Enter number of pages of the magazine:");
+        numberOfPages = reader.nextInt();
+        
+        this.register.addLiterature(new Magazine(numberOfReleases, title, publisher, category, language, dateOfRelease, numberOfPages));
+        System.out.println("Magazine: " + title + " has been added to register!");
+    }
+        
+    private void addBookletToRegister(){
+        String title; String publisher; int numberOfReleases; String category; String language; String dateOfRelease; int numberOfPages;
+        System.out.println("To add a booklet to the register, you have to enter the number of releases, title, "
+                            + "publisher, catagory, language, date of release and number of pages of the booklet.");
+        Scanner reader = new Scanner(System.in);
+        
+        // Title
+        System.out.println("1.Enter the title of the booklet:");
+        title = reader.nextLine();
+        
+        // Publisher
+        System.out.println("2.Enter the publisher of the booklet:");
+        publisher = reader.nextLine();
+        
+        // Category
+        System.out.println("3.Enter the catagory of the booklet:");
+        category = reader.nextLine();
+        
+        // Language
+        System.out.println("4.Enter the language of the booklet:");
+        language = reader.nextLine();
+
+        // Date of release
+        System.out.println("5.Enter the Date of release of the booklet:");
+        dateOfRelease = reader.nextLine();
+        
+        // Number of pages
+        System.out.println("6.Enter number of pages of the booklet:");
+        numberOfPages = reader.nextInt();
+        
+        this.register.addLiterature(new Booklet(title, publisher, category, language, dateOfRelease, numberOfPages));
+        System.out.println("Booklet: " + title + " has been added to register!");
     }
 }
