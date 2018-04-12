@@ -14,5 +14,4 @@ public class Main {
         UserInterface u1 = new UserInterface();
         u1.start();   
    }
-
 }

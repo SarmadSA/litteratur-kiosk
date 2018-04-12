@@ -1,4 +1,4 @@
-
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -49,22 +49,22 @@ public class UserInterface {
 
                 // List all avalible books
                 case 3:
-                    listAllBooks();
+                    listAllOfType("Book");
                     break;
 
                 // List all avalible books
                 case 4:
-                    listAllNewspaper();
+                    listAllOfType("Newspaper");
                     break;
 
                 // List all avalible books
                 case 5:
-                    listAllMagazines();
+                    listAllOfType("Magazine");
                     break;
 
                 // List all avalible books
                 case 6:
-                    listAllBooklets();
+                    listAllOfType("Booklet");
                     break;
 
                 // Delete chosen newspaper
@@ -141,67 +141,30 @@ public class UserInterface {
         }
     }
 
-    private void listAllBooks() {
-        int numberOfBooksFound = 0;
+    private void listAllOfType(String type) {
+        int numberOfObjectsFound = 0;
         Iterator<Literature> it = this.register.getIterator();
         while (it.hasNext()) {
             Literature literature = it.next();
-            if (literature instanceof Book) {
-                System.out.print(literature);
-                System.out.println();
-                numberOfBooksFound++;
+            if (type.equals("Book") && literature instanceof Book) {
+                System.out.println(literature);
+                numberOfObjectsFound++;
+            }
+            else if(type.equals("Magazine") && literature instanceof Magazine){
+                System.out.println(literature);
+                numberOfObjectsFound++;                
+            }
+            else if(type.equals("Newspaper") && literature instanceof Newspaper){
+                System.out.println(literature);
+                numberOfObjectsFound++;                
+            }
+            else if(type.equals("Booklet") && literature instanceof Booklet){
+                System.out.println(literature);
+                numberOfObjectsFound++;                
             }
         }
-        if (numberOfBooksFound == 0) {
-            System.out.println("No Books found!");
-        }
-    }
-
-    private void listAllNewspaper() {
-        int numberOfNewspaperFound = 0;
-        Iterator<Literature> it = this.register.getIterator();
-        while (it.hasNext()) {
-            Literature literature = it.next();
-            if (literature instanceof Newspaper) {
-                System.out.print(literature);
-                System.out.println();
-                numberOfNewspaperFound++;
-            }
-        }
-        if (numberOfNewspaperFound == 0) {
-            System.out.println("No Newspaper found!");
-        }
-    }
-
-    private void listAllMagazines() {
-        int numberOfMagazineFound = 0;
-        Iterator<Literature> it = this.register.getIterator();
-        while (it.hasNext()) {
-            Literature literature = it.next();
-            if (literature instanceof Magazine) {
-                System.out.print(literature);
-                System.out.println();
-                numberOfMagazineFound++;
-            }
-        }
-        if (numberOfMagazineFound == 0) {
-            System.out.println("No Magazine found!");
-        }
-    }
-
-    private void listAllBooklets() {
-        int numberOfBookletsFound = 0;
-        Iterator<Literature> it = this.register.getIterator();
-        while (it.hasNext()) {
-            Literature literature = it.next();
-            if (literature instanceof Booklet) {
-                System.out.print(literature);
-                System.out.println();
-                numberOfBookletsFound++;
-            }
-        }
-        if (numberOfBookletsFound == 0) {
-            System.out.println("No Booklet found!");
+        if (numberOfObjectsFound == 0) {
+            System.out.println("None found!");
         }
     }
 
@@ -388,7 +351,7 @@ public class UserInterface {
     }
         
     private void addBookletToRegister(){
-        String title; String publisher; int numberOfReleases; String category; String language; String dateOfRelease; int numberOfPages;
+        String title; String publisher; String category; String language; String dateOfRelease; int numberOfPages;
         System.out.println("To add a booklet to the register, you have to enter the number of releases, title, "
                             + "publisher, catagory, language, date of release and number of pages of the booklet.");
         Scanner reader = new Scanner(System.in);
@@ -420,4 +383,118 @@ public class UserInterface {
         this.register.addLiterature(new Booklet(title, publisher, category, language, dateOfRelease, numberOfPages));
         System.out.println("Booklet: " + title + " has been added to register!");
     }
+    
+//    private void addLiteraturet(){
+//        HashMap<String, String> parameter = new HashMap<>();
+//        parameter.put("title", "1.Enter the title of the booklet:");
+//        parameter.put("publisher", "2.Enter the publisher of the booklet:");
+//        parameter.put("category", "3.Enter the catagory of the booklet:");
+//        parameter.put("language", "4.Enter the language of the booklet:");
+//        parameter.put("date", "5.Enter the Date of release of the booklet:");
+//        parameter.put("number of pages", "6.Enter number of pages of the booklet:");
+//        
+//        String title; String publisher; int numberOfReleases; String category; String language; String dateOfRelease; int numberOfPages;
+//        String parameters[] = {};
+//        String parametersText[] = {"1.Enter the title of the booklet:",
+//                            "2.Enter the publisher of the booklet:",
+//                            "3.Enter the catagory of the booklet:",
+//                            "4.Enter the language of the booklet:",
+//                            "5.Enter the Date of release of the booklet:",
+//                            "6.Enter number of pages of the booklet:"};
+//        Scanner reader = new Scanner(System.in);
+//        for(String text: parametersText){
+//            int i = 0;
+//            System.out.println(text);
+//            parameters[i] = reader.nextLine();
+//            i++;
+//        }
+//        this.register.addLiterature(new Booklet(parameters[0] , parameters[1], parameters[2], parameters[3], parameters[4], 10/*numberOfPages*/));
+//        System.out.println("Booklet: " + parameters[0] + " has been added to register!");
+//    }
+//    
+//    private void listAllType() {
+//        ArrayList<Book> books = new ArrayList<>();
+//        ArrayList<Magazine> Magazines = new ArrayList<>();
+//        ArrayList<Newspaper> Newspaper = new ArrayList<>();
+//        ArrayList<Booklet> booklets = new ArrayList<>();
+//        Iterator<Literature> it = this.register.getIterator();
+//        while (it.hasNext()) {
+//            Literature literature = it.next();
+//            if (literature instanceof Book) {
+//                books.add((Book) literature);
+//            }
+//            if (literature instanceof Magazine) {
+//                Magazines.add((Magazine) literature);
+//            }
+//            if (literature instanceof Newspaper) {
+//                Newspaper.add((Newspaper) literature);
+//            }
+//            if (literature instanceof Booklet) {
+//                booklets.add((Booklet) literature);
+//            }
+//        }
+//    } 
+//        private void listAllBooks() {
+//        int numberOfBooksFound = 0;
+//        Iterator<Literature> it = this.register.getIterator();
+//        while (it.hasNext()) {
+//            Literature literature = it.next();
+//            if (literature instanceof Book) {
+//                System.out.print(literature);
+//                System.out.println();
+//                numberOfBooksFound++;
+//            }
+//        }
+//        if (numberOfBooksFound == 0) {
+//            System.out.println("No Books found!");
+//        }
+//    }
+//
+//    private void listAllNewspaper() {
+//        int numberOfNewspaperFound = 0;
+//        Iterator<Literature> it = this.register.getIterator();
+//        while (it.hasNext()) {
+//            Literature literature = it.next();
+//            if (literature instanceof Newspaper) {
+//                System.out.print(literature);
+//                System.out.println();
+//                numberOfNewspaperFound++;
+//            }
+//        }
+//        if (numberOfNewspaperFound == 0) {
+//            System.out.println("No Newspaper found!");
+//        }
+//    }
+//
+//    private void listAllMagazines() {
+//        int numberOfMagazineFound = 0;
+//        Iterator<Literature> it = this.register.getIterator();
+//        while (it.hasNext()) {
+//            Literature literature = it.next();
+//            if (literature instanceof Magazine) {
+//                System.out.print(literature);
+//                System.out.println();
+//                numberOfMagazineFound++;
+//            }
+//        }
+//        if (numberOfMagazineFound == 0) {
+//            System.out.println("No Magazine found!");
+//        }
+//    }
+//
+//    private void listAllBooklets() {
+//        int numberOfBookletsFound = 0;
+//        Iterator<Literature> it = this.register.getIterator();
+//        while (it.hasNext()) {
+//            Literature literature = it.next();
+//            if (literature instanceof Booklet) {
+//                System.out.print(literature);
+//                System.out.println();
+//                numberOfBookletsFound++;
+//            }
+//        }
+//        if (numberOfBookletsFound == 0) {
+//            System.out.println("No Booklet found!");
+//        }
+//    }
 }

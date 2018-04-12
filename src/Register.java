@@ -87,5 +87,4 @@ public class Register {
         literatureList.add(new Booklet("Ordliste", "English learner", "School", "EN", "21.07.2012", 14));
         literatureList.add(new Magazine(9 ,"Topp bladet", "Publiseringslaget - topp", "Sport", "NO", "31.07.2001", 26));
     }
-
 }
