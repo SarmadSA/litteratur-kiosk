@@ -74,7 +74,7 @@ public class Register {
     /**
      * Lists all persons in the phone book to the terminal window.
      */
-    public Iterator<Literature> getIterator() {
+    public Iterator<Literature> getLiteraureIterator() {
         return this.literatureList.iterator();
     }
 

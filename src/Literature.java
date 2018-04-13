@@ -1,5 +1,4 @@
 public class Literature {
-    //add Id field to remove literature easily by id
     private String title;
     private String publisher;
     private String category;
