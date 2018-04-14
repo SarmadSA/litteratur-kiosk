@@ -27,7 +27,7 @@ public class NewspaperTest {
      */
     @Before
     public void setUp(){
-        n1 = new Newspaper("VG", "publisher", 230, "Sport");
+        n1 = new Newspaper(12,"VG", "publisher", "Sport", "EN", "23.03.11", 23);
     }
     
     /**

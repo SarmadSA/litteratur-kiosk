@@ -63,7 +63,7 @@ public class Literature {
     /**
      * Changes/sets the publisher of literature to a new title
      * 
-     * @param title the new publisher of the literature ot set
+     * @param publisher the new publisher of the literature ot set
      */
     protected void setPublisher(String publisher) {
         this.publisher = publisher;
@@ -81,7 +81,7 @@ public class Literature {
     /**
      * Changes/sets the category of literature to a new title
      * 
-     * @param title the new category of the literature ot set
+     * @param category the new category of the literature ot set
      */
     protected void setCategory(String category) {
         this.category = category;
@@ -117,7 +117,7 @@ public class Literature {
     /**
      * Changes/sets the date of release of literature to a new title
      * 
-     * @param title the new date of release of the literature ot set
+     * @param dateOfRelease the new date of release of the literature ot set
      */    
     protected void setDateOfRelease(String dateOfRelease) {
         this.dateOfRelease = dateOfRelease;
@@ -135,7 +135,7 @@ public class Literature {
     /**
      * Changes/sets the number of pages of literature to a new title
      * 
-     * @param title the new number of pages of the literature ot set
+     * @param numberOfPages the new number of pages of the literature ot set
      */
     protected void setNumberOfPages(int numberOfPages) {
         this.numberOfPages = numberOfPages;
