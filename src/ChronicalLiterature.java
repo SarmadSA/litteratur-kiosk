@@ -43,15 +43,4 @@ public class ChronicalLiterature extends Literature {
     protected int getNumberOfRealeases() {
         return this.numberOfreleases;
     }
-    
-    /**
-     * Returns a text representation of the chronical literature 
-     * 
-     * @return text representation of the chronical literature 
-     */    
-    @Override
-    public String toString(){
-        String text = super.toString() + "Number of releases: " + numberOfreleases + "\n"; 
-        return text;
-    }
 }

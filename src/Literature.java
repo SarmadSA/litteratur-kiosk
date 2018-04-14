@@ -140,12 +140,4 @@ public class Literature {
     protected void setNumberOfPages(int numberOfPages) {
         this.numberOfPages = numberOfPages;
     }
-    
-    @Override
-    public String toString(){
-        String text = "Title: " + title + "\n" + "Publisher: " + publisher + "\n" + 
-                      "Category: " + category + "\n" + "Language: " + language + "\n" + 
-                      "Date of release: " + dateOfRelease + "\n" + "Number of pages: " + numberOfPages + "\n";
-        return text;
-    }
 }

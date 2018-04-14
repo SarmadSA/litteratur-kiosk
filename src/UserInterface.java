@@ -48,53 +48,33 @@ public class UserInterface {
                     fillLiteratureList();
                     break;
 
-                // Get all registered newspapers displayed
+                // print all literature in register
                 case 2:
-                    listAllLiterature();
+                    viewRegister();
                     break;
 
-                // List all avalible books
+                // Delete chosen literature
                 case 3:
-                    listAllOfType("Book");
-                    break;
-
-                // List all avalible books
-                case 4:
-                    listAllOfType("Newspaper");
-                    break;
-
-                // List all avalible books
-                case 5:
-                    listAllOfType("Magazine");
-                    break;
-
-                // List all avalible books
-                case 6:
-                    listAllOfType("Booklet");
-                    break;
-
-                // Delete chosen newspaper
-                case 7:
                     removeLiteratureByTitleInclude();
                     break;
 
-                // Adde to literature to register
-                case 8:
+                // Adde literature to register
+                case 4:
                     addToRegister();
                     break;
                 
                 //Add to cart  
-                case 9:
+                case 5:
                     addLiteratureToCart();
                     break;
                     
                 // View cart
-                case 10:
+                case 6:
                     viewCart();
                     break;                    
                     
                 // Quit
-                case 11:
+                case 7:
                     printQuitMessage();
                     finished = true;
                     break;
@@ -138,70 +118,55 @@ public class UserInterface {
             }
         }
     }
-
-    /**
-     * Prints all avalible literature in the register.
-     */
-    private void listAllLiterature() {
-        Iterator<Literature> it = this.register.getLiteraureIterator();
+    
+   /**
+    * prints all avalible literature in the register.
+    */
+    private void viewRegister(){
+        printAllLiteratureInList(this.register.getLiteraureIterator());
+    }
+    
+   /**
+    * Lists all avalible literature in the given iterator.
+    */
+    private void printAllLiteratureInList(Iterator iterator) {
+        Iterator<Literature> it = iterator;
         if (!it.hasNext()) {
             System.out.println("Register is empty!");
         }
         while (it.hasNext()) {
             Literature literature = it.next();
-            System.out.print(literature);
-            System.out.println();
-        }
-    }
-    
-    /**
-     * Lists all avalible literature in the register by type.
-     * 
-     * @param type the type of the literature to list
-     */
-    private void listAllOfType(String type) {
-        int numberOfObjectsFound = 0;
-        Iterator<Literature> it = this.register.getLiteraureIterator();
-        while (it.hasNext()) {
-            Literature literature = it.next();
-            if (type.equals("Book") && literature instanceof Book) {
+            if (literature instanceof Book) {
                 Book b = (Book) literature;
                 System.out.println("Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
                                    "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
                                    "Date of release: " + b.getDateOfRelease() + "\n" +
                                    "Number of pages: " + b.getNumberOfPages() + "\n" + "Version: " + b.getVersion() + "\n" +
                                    "Edition: " + b.getEdition() + "\n");
-                numberOfObjectsFound++;
             }
-            else if(type.equals("Magazine") && literature instanceof Magazine){
+            else if(literature instanceof Magazine){
                 Magazine b = (Magazine) literature;
                 System.out.println("Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
                                    "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
                                    "Date of release: " + b.getDateOfRelease() + "\n" +
                                    "Number of pages: " + b.getNumberOfPages() + "\n" + 
                                    "Number of releases: " + b.getNumberOfRealeases() + "\n");
-                numberOfObjectsFound++;                
             }
-            else if(type.equals("Newspaper") && literature instanceof Newspaper){
+            else if(literature instanceof Newspaper){
                 Newspaper b = (Newspaper) literature;
                 System.out.println("Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
                                    "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
                                    "Date of release: " + b.getDateOfRelease() + "\n" +
                                    "Number of pages: " + b.getNumberOfPages() + "\n" + 
                                    "Number of releases: " + b.getNumberOfRealeases() + "\n");
-                numberOfObjectsFound++;                
             }
-            else if(type.equals("Booklet") && literature instanceof Booklet){
+            else if(literature instanceof Booklet){
                 Booklet b = (Booklet) literature;
                 System.out.println("Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
                                    "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
                                    "Date of release: " + b.getDateOfRelease() + "\n" +
-                                   "Number of pages: " + b.getNumberOfPages() + "\n");
-                numberOfObjectsFound++;                
+                                   "Number of pages: " + b.getNumberOfPages() + "\n");                
             }
-        }
-        if (numberOfObjectsFound == 0) {
-            System.out.println("None found!");
         }
     }
 
@@ -229,15 +194,11 @@ public class UserInterface {
         System.out.println("Type 0 to show menu");
         System.out.println("Type 1 to fill register with Literature");
         System.out.println("Type 2 to list all available Literature");
-        System.out.println("Type 3 to list all available books");
-        System.out.println("Type 4 to list all available Newspaper");
-        System.out.println("Type 5 to list all available Magazines");
-        System.out.println("Type 6 to list all available Booklets");
-        System.out.println("Type 7 to remove a Literature");
-        System.out.println("Type 8 to add a Literature to register");
-        System.out.println("Type 9 to add a Literature to cart");
-        System.out.println("Type 10 to view cart");
-        System.out.println("Type 11 to quit");
+        System.out.println("Type 3 to remove a Literature");
+        System.out.println("Type 4 to add a Literature to register");
+        System.out.println("Type 5 to add a Literature to cart");
+        System.out.println("Type 6 to view cart");
+        System.out.println("Type 7 to quit");
     }
     
     /**
@@ -467,13 +428,6 @@ public class UserInterface {
      * Lists all literature that is added to cart.
      */   
     private void viewCart() {
-        Iterator<Literature> it = this.cart.getCartIterator();
-        if (!it.hasNext()) {
-            System.out.println("Cart is empty!");
-        }
-        while (it.hasNext()) {
-            Literature literature = it.next();
-            System.out.println(literature);
-        }
+        printAllLiteratureInList(this.cart.getCartIterator());
     }
 }

@@ -63,10 +63,4 @@ public class Book extends Literature{
     public void setEdition(String edition) {
         this.edition = edition;
     }
-    
-    @Override
-    public String toString(){
-        String text = super.toString() + "Versin: " + version + "\n" + "Edition: " + edition + "\n"; 
-        return text;
-    }
 }
