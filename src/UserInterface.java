@@ -55,7 +55,7 @@ public class UserInterface {
 
                 // Delete chosen literature
                 case 3:
-                    removeLiteratureByTitleInclude();
+                    removeLiteratureByTitle();
                     break;
 
                 // Adde literature to register
@@ -111,23 +111,23 @@ public class UserInterface {
     /**
      * Removes literature with given tittle from register.
      */
-    private void removeLiteratureByTitleInclude() {
+    private void removeLiteratureByTitle() {
         Scanner reader = new Scanner(System.in);
 
         Iterator<Literature> it = this.register.getLiteraureIterator();
         if (!it.hasNext()) {
             System.out.println("Register is empty! There are no literature to remove.");
-        } else {
-            String titleIncludes = "";
+        } 
+        else {
             System.out.println("Insert the title of the literature to remove:");
-
-            if (reader.hasNext()) {
-                titleIncludes = reader.next();
-            }
-            if (register.getLiteratureByTitle(titleIncludes) != null) {
-                System.out.println(register.getLiteratureByTitle(titleIncludes).getTitle() + " Has been removed");
-                register.removeByTitleContains(titleIncludes);
-            } else {
+            String titleIncludes = reader.next();
+            
+            Literature literatureToRemove = register.getLiteratureByTitle(titleIncludes);
+            if (literatureToRemove != null) {
+                System.out.println(literatureToRemove.getTitle() + " Has been removed");
+                register.removeByTitleContains(literatureToRemove.getTitle());
+            } 
+            else {
                 System.out.println("Invalid Literature title, ...");
             }
         }
