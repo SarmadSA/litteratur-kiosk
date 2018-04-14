@@ -2,26 +2,32 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 /**
- * Represents user interface
+ * Represents user interface that is responsible for 
+ * the communication with the user.
  *
- * @author Nikita Sumahers, Sarmad Abbas and Kristin Hagen
- * @version 2018-03-09
+ * @author Sarmad, Nikita and Kristin
+ * @version 2018.04.14
  */
 public class UserInterface {
 
-    private Register register;
-    private Cart cart;
-
+    private final Register register;
+    private final Cart cart;
+    
+    /**
+     * Constructor of userInterface class.
+     */
     public UserInterface() {
         this.register = new Register();
         this.cart = new Cart();
     }
-
+    
+    /**
+     * Starts the application.
+     */
     public void start() {
         boolean finished = false;
-
         int choice = 0;
-
+        
         printWelcome();
         printMenu();
         while (!finished) {
@@ -29,12 +35,11 @@ public class UserInterface {
 
             if (reader.hasNextInt()) {
                 choice = reader.nextInt();
-            } else {
+            } 
+            else {
                 // Set choice to an invalid value
                 choice = 99;
             }
-
-            // Fill newspaper with predefined newspapers
             switch (choice) {
                 case 0:
                     printMenu();
@@ -103,17 +108,16 @@ public class UserInterface {
     }
 
     /**
-     * Quit message
+     * Prints quit message.
      */
     private void printQuitMessage() {
         System.out.println("Thank you for visiting our register, Bye..");
     }
 
     /**
-     * removes newspapwer if given word is in a title of newspaper
+     * Removes literature with given tittle from register.
      */
     private void removeLiteratureByTitleInclude() {
-        int choice = 0;
         Scanner reader = new Scanner(System.in);
 
         Iterator<Literature> it = this.register.getLiteraureIterator();
@@ -131,13 +135,12 @@ public class UserInterface {
                 register.removeByTitleContains(titleIncludes);
             } else {
                 System.out.println("Invalid Literature title, ...");
-                choice = 3;
             }
         }
     }
 
     /**
-     * Prints all newspapers registered in the register
+     * Prints all avalible literature in the register.
      */
     private void listAllLiterature() {
         Iterator<Literature> it = this.register.getLiteraureIterator();
@@ -150,7 +153,12 @@ public class UserInterface {
             System.out.println();
         }
     }
-
+    
+    /**
+     * Lists all avalible literature in the register by type.
+     * 
+     * @param type the type of the literature to list
+     */
     private void listAllOfType(String type) {
         int numberOfObjectsFound = 0;
         Iterator<Literature> it = this.register.getLiteraureIterator();
@@ -198,7 +206,7 @@ public class UserInterface {
     }
 
     /**
-     * Fills the register with predefined literature
+     * Fills the register with predefined literature.
      */
     private void fillLiteratureList() {
         this.register.fillLiteratureRegister();
@@ -206,14 +214,14 @@ public class UserInterface {
     }
 
     /**
-     * Print welcome message
+     * Prints welcome message-
      */
     private void printWelcome() {
         System.out.println("***Welocme to the Literature register!***");
     }
 
     /**
-     * Print menu choices
+     * Prints menu choices.
      */
     private void printMenu() {
         System.out.println();
@@ -231,11 +239,17 @@ public class UserInterface {
         System.out.println("Type 10 to view cart");
         System.out.println("Type 11 to quit");
     }
-
+    
+    /**
+     * Prints type to add menu.
+     */
     private void printAddOptionsMenu() {
         System.out.print("Choose type of literature you want to add: \n 1.Book \n 2.Newspaper \n 3.Magazin \n 4.Booklet \n");
     }
 
+    /**
+     * Adds new literature of chosen type to register.
+     */
     private void addToRegister(){
         printAddOptionsMenu();
         Scanner reader = new Scanner(System.in);
@@ -259,6 +273,9 @@ public class UserInterface {
         }
     }
     
+    /**
+     * Adds new book to register.
+     */
     private void addBookToRegister() {
         String title; String publisher; String category; String language; String dateOfRelease; String version; String edition;int numberOfPages;
         System.out.println("To add a book to the register, you have to enter the title, "
@@ -343,6 +360,9 @@ public class UserInterface {
         System.out.println("Newspaper: " + title + " has been added to register!");
     }
     
+    /**
+     * Adds new magazine to register.
+     */
     private void addMagazineToRegister(){
         String title; String publisher; int numberOfReleases; String category; String language; String dateOfRelease; int numberOfPages;
         System.out.println("To add a magazine to the register, you have to enter the number of releases, title, "
@@ -381,6 +401,9 @@ public class UserInterface {
         System.out.println("Magazine: " + title + " has been added to register!");
     }
         
+    /**
+     * Adds new booklet to register.
+     */
     private void addBookletToRegister(){
         String title; String publisher; String category; String language; String dateOfRelease; int numberOfPages;
         System.out.println("To add a booklet to the register, you have to enter the number of releases, title, "
@@ -415,7 +438,9 @@ public class UserInterface {
         System.out.println("Booklet: " + title + " has been added to register!");
     }
     
-    
+    /**
+     * Adds chosen literature to cart.
+     */    
     private void addLiteratureToCart() {
         Scanner reader = new Scanner(System.in);
 
@@ -438,6 +463,9 @@ public class UserInterface {
         }
     }
     
+    /**
+     * Lists all literature that is added to cart.
+     */   
     private void viewCart() {
         Iterator<Literature> it = this.cart.getCartIterator();
         if (!it.hasNext()) {
@@ -448,143 +476,4 @@ public class UserInterface {
             System.out.println(literature);
         }
     }
-    
-//    private void addLiterature2(int choice){
-//        String typeToAdd = "";
-//        ArrayList<String> parametersText = new ArrayList<>();
-//        ArrayList<String> p = new ArrayList<>();
-//        
-//        Scanner reader = new Scanner(System.in);
-//        if(choice == 1){
-//            typeToAdd = "book";
-//            parametersText.add("7.Enter the edition of the " +  typeToAdd + ":");
-//            parametersText.add("8.Enter version of the " +  typeToAdd + ":");
-//        }
-//        else if(choice == 2){
-//            typeToAdd = "Newspaper";
-//            parametersText.add("7.Enter the number of releases of the " +  typeToAdd + ":");
-//        }
-//        else if(choice == 3){
-//            typeToAdd = "Magazine";
-//            parametersText.add("7.Enter the number of releases of the " +  typeToAdd + ":");
-//        }
-//        else if(choice == 4){
-//            typeToAdd = "Booklet";
-//        }
-//        
-//        parametersText.add("1.Enter the title of the " + typeToAdd + ":");
-//        parametersText.add("2.Enter the publisher of the " +  typeToAdd + ":");
-//        parametersText.add("3.Enter the catagory of the " +  typeToAdd + ":");
-//        parametersText.add("4.Enter the language of the " +  typeToAdd + ":");
-//        parametersText.add("5.Enter the Date of release of the " +  typeToAdd + ":");
-//        parametersText.add("6.Enter number of pages of the " +  typeToAdd + ":");
-//        
-//        for(String text: parametersText){
-//            int i = 0;
-//            System.out.println(text);
-//            String parameter = reader.nextLine();
-//            p.add(parameter);
-//            i++;
-//        }
-//        
-//        if(choice == 1){
-//            this.register.addLiterature(new Booklet(p.get(0), p.get(1) ,p.get(2) ,p.get(3) ,p.get(4),Integer.parseInt(p.get(5))));
-//        }
-//        else if(choice == 2){
-//            this.register.addLiterature(new Newspaper(Integer.parseInt(p.get(6)), p.get(0), p.get(1), p.get(2) ,p.get(3) ,p.get(4) ,Integer.parseInt(p.get(5))));
-//        }
-//        else if(choice == 3){
-//            this.register.addLiterature(new Magazine(Integer.parseInt(p.get(6)), p.get(0), p.get(1), p.get(2) ,p.get(3) ,p.get(4) ,Integer.parseInt(p.get(5))));
-//        }
-//        else if(choice == 4){
-//            this.register.addLiterature(new Booklet(p.get(0), p.get(1) ,p.get(2) ,p.get(3) ,p.get(4),Integer.parseInt(p.get(5))));
-//        }
-//        System.out.println(typeToAdd + ": " + p.get(0) + " has been added to register!");
-//    }
-//    
-//    private void listAllType() {
-//        ArrayList<Book> books = new ArrayList<>();
-//        ArrayList<Magazine> Magazines = new ArrayList<>();
-//        ArrayList<Newspaper> Newspaper = new ArrayList<>();
-//        ArrayList<Booklet> booklets = new ArrayList<>();
-//        Iterator<Literature> it = this.register.getIterator();
-//        while (it.hasNext()) {
-//            Literature literature = it.next();
-//            if (literature instanceof Book) {
-//                books.add((Book) literature);
-//            }
-//            if (literature instanceof Magazine) {
-//                Magazines.add((Magazine) literature);
-//            }
-//            if (literature instanceof Newspaper) {
-//                Newspaper.add((Newspaper) literature);
-//            }
-//            if (literature instanceof Booklet) {
-//                booklets.add((Booklet) literature);
-//            }
-//        }
-//    } 
-//        private void listAllBooks() {
-//        int numberOfBooksFound = 0;
-//        Iterator<Literature> it = this.register.getIterator();
-//        while (it.hasNext()) {
-//            Literature literature = it.next();
-//            if (literature instanceof Book) {
-//                System.out.print(literature);
-//                System.out.println();
-//                numberOfBooksFound++;
-//            }
-//        }
-//        if (numberOfBooksFound == 0) {
-//            System.out.println("No Books found!");
-//        }
-//    }
-//
-//    private void listAllNewspaper() {
-//        int numberOfNewspaperFound = 0;
-//        Iterator<Literature> it = this.register.getIterator();
-//        while (it.hasNext()) {
-//            Literature literature = it.next();
-//            if (literature instanceof Newspaper) {
-//                System.out.print(literature);
-//                System.out.println();
-//                numberOfNewspaperFound++;
-//            }
-//        }
-//        if (numberOfNewspaperFound == 0) {
-//            System.out.println("No Newspaper found!");
-//        }
-//    }
-//
-//    private void listAllMagazines() {
-//        int numberOfMagazineFound = 0;
-//        Iterator<Literature> it = this.register.getIterator();
-//        while (it.hasNext()) {
-//            Literature literature = it.next();
-//            if (literature instanceof Magazine) {
-//                System.out.print(literature);
-//                System.out.println();
-//                numberOfMagazineFound++;
-//            }
-//        }
-//        if (numberOfMagazineFound == 0) {
-//            System.out.println("No Magazine found!");
-//        }
-//    }
-//
-//    private void listAllBooklets() {
-//        int numberOfBookletsFound = 0;
-//        Iterator<Literature> it = this.register.getIterator();
-//        while (it.hasNext()) {
-//            Literature literature = it.next();
-//            if (literature instanceof Booklet) {
-//                System.out.print(literature);
-//                System.out.println();
-//                numberOfBookletsFound++;
-//            }
-//        }
-//        if (numberOfBookletsFound == 0) {
-//            System.out.println("No Booklet found!");
-//        }
-//    }
 }

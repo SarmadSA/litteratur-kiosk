@@ -2,26 +2,27 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Represents the register of newspaper.
- *
- * @author Nikita Sumahers, Sarmad Abbas and Kristin Hagen
- * @version 2018-02-12
+ * Represents the register of literature,
+ * the register stores all avalible literature.
+ * 
+ * @author Sarmad, Nikita and Kristin
+ * @version 2018.04.14
  */
 public class Register {
 
-    private ArrayList<Literature> literatureList;
+    private final ArrayList<Literature> literatureList;
 
     /**
      * Constructor for objects of class Register.
      */
     public Register() {
-        this.literatureList = new ArrayList<Literature>();
+        this.literatureList = new ArrayList<>();
     }
 
     /**
-     * Adds a newspaper to the register
+     * Adds a literature to the register
      *
-     * @param newspaper - the newspaper to add to the register
+     * @param literature - the newspaper to add to the register
      */
     public void addLiterature(Literature literature) {
         this.literatureList.add(literature);
@@ -30,17 +31,18 @@ public class Register {
     /**
      * Removes a newspaper by its index from the register
      *
-     * @param index - the index of the newspaper to remove from the register
+     * @param index - the index of the literature to remove from the register
      */
     public void removeLiteratureByIndex(int index) {
         this.literatureList.remove(index);
     }
 
     /**
-     * Searches and returns for all newspapers that contain a given string in
-     * their title
+     * Searches and returns all literature that contain a given string in
+     * the title.
      *
-     * @param title - the string of the newspaper to remove from the register
+     * @param title - the title of the literature to remove from the register
+     * @return return the found literature that contains the given string
      */
     public Literature getLiteratureByTitle(String title) {
         Literature foundLiterature = null;
@@ -55,10 +57,10 @@ public class Register {
     }
 
     /**
-     * Removes all newspapers that contain a given string in their title from
+     * Removes all literature that contain a given string in their title from
      * the register
      *
-     * @param title - the string of the newspaper to remove from the register
+     * @param titleToRemove the title of the newspaper to remove from the register
      */
     public void removeByTitleContains(String titleToRemove) {
         Iterator<Literature> it = literatureList.iterator();
@@ -72,14 +74,16 @@ public class Register {
     }
     
     /**
-     * Lists all persons in the phone book to the terminal window.
+     * Return iteratore of literature that is added to the register
+     * 
+     * @return iteratuor of literature arraylist
      */
     public Iterator<Literature> getLiteraureIterator() {
         return this.literatureList.iterator();
     }
 
     /**
-     * Adds some newspaper to the register.
+     * Fills register with some literature.
      */
     public void fillLiteratureRegister() {
         literatureList.add(new Newspaper(78 ,"VG Avis", "Publiseringslaget - VG", "Sport", "NO", "31.07.2001", 365));
