@@ -41,7 +41,7 @@ public class Register {
      * Searches and returns all literature that contain a given string in
      * the title.
      *
-     * @param title - the title of the literature to remove from the register
+     * @param title - the title of the literature to find from the register
      * @return return the found literature that contains the given string
      */
     public Literature getLiteratureByTitle(String title) {
@@ -49,7 +49,26 @@ public class Register {
         int index = 0;
         while ((null == foundLiterature) && (index < this.literatureList.size())) {
             Literature p = this.literatureList.get(index++);
-            if (p.getTitle().contains(title)) {
+            if (p.getTitle().toLowerCase().contains(title)) {
+                foundLiterature = p;
+            }
+        }
+        return foundLiterature;
+    }
+    
+    /**
+     * Searches and returns all literature that contain a given text in
+     * the publisher field.
+     *
+     * @param publisher - the publisher of the literature to find from the register
+     * @return return the found literature that contains the given string
+     */
+    public Literature getLiteratureByPublisher(String publisher) {
+        Literature foundLiterature = null;
+        int index = 0;
+        while ((null == foundLiterature) && (index < this.literatureList.size())) {
+            Literature p = this.literatureList.get(index++);
+            if (p.getPublisher().toLowerCase().contains(publisher)) {
                 foundLiterature = p;
             }
         }
@@ -60,7 +79,7 @@ public class Register {
      * Removes all literature that contain a given string in their title from
      * the register
      *
-     * @param titleToRemove the title of the newspaper to remove from the register
+     * @param titleToRemove the title of the literature to remove from the register
      */
     public void removeByTitleContains(String titleToRemove) {
         Iterator<Literature> it = literatureList.iterator();

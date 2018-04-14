@@ -71,13 +71,22 @@ public class UserInterface {
                 // View cart
                 case 6:
                     viewCart();
-                    break;                    
-                    
-                // Quit
+                    break;
+                
+                // search register
                 case 7:
+                    searchRegister();
+                    break; 
+                    
+                // search register by title and register
+                case 8:
+                    findConcreteLiterature();
+                    break; 
+                // Quit
+                case 9:
                     printQuitMessage();
                     finished = true;
-                    break;
+                    break;   
 
                 // default
                 default:
@@ -123,16 +132,19 @@ public class UserInterface {
     * prints all avalible literature in the register.
     */
     private void viewRegister(){
-        printAllLiteratureInList(this.register.getLiteraureIterator());
+        printAllLiteratureInList(this.register.getLiteraureIterator(), "Register is empty!");
     }
     
    /**
-    * Lists all avalible literature in the given iterator.
+    * Prints all avalible literature in the given iterator.
+    * 
+    * @param iterator the iterator (that returns/holds a collection) to go through and print.
+    * @param emptyCollectionMessage the message to print when there is nothing to print
     */
-    private void printAllLiteratureInList(Iterator iterator) {
+    private void printAllLiteratureInList(Iterator iterator, String emptyCollectionMessage) {
         Iterator<Literature> it = iterator;
         if (!it.hasNext()) {
-            System.out.println("Register is empty!");
+            System.out.println(emptyCollectionMessage);
         }
         while (it.hasNext()) {
             Literature literature = it.next();
@@ -198,7 +210,9 @@ public class UserInterface {
         System.out.println("Type 4 to add a Literature to register");
         System.out.println("Type 5 to add a Literature to cart");
         System.out.println("Type 6 to view cart");
-        System.out.println("Type 7 to quit");
+        System.out.println("Type 7 to search register by title or publisher");
+        System.out.println("Type 8 to search register by title and publisher");
+        System.out.println("Type 9 to quit");
     }
     
     /**
@@ -425,9 +439,70 @@ public class UserInterface {
     }
     
     /**
-     * Lists all literature that is added to cart.
+     * Searches the register by title or publisher and prints found literature.
+     */    
+    private void searchRegister() {
+        Scanner reader = new Scanner(System.in);
+
+        Iterator<Literature> it = this.register.getLiteraureIterator();
+        if (!it.hasNext()) {
+            System.out.println("You cant search any literature because register is empty!");
+        } 
+        else {
+            System.out.println("Insert the title or the publisher of the literature to search:");
+            if(reader.hasNext()) {
+                String searchWord = reader.next();
+                Literature searchTitle = register.getLiteratureByTitle(searchWord);
+                Literature searchPublisher = register.getLiteratureByPublisher(searchWord);
+                if (searchTitle != null) {
+                    System.out.println("Found results: \n" + searchTitle.getTitle() + ", By: " + 
+                                       searchTitle.getPublisher());   
+                }
+                else if (searchPublisher != null){
+                    System.out.println("Found results: \n" + searchPublisher.getTitle() + ", By: " +
+                                       searchPublisher.getPublisher()); 
+                }
+                else {
+                    System.out.println("No literature found!");
+                }
+            }
+        }
+    }
+    
+    /**
+     * Searches the register by title and publisher and prints found literature.
+     */    
+    private void findConcreteLiterature() {
+        Scanner reader = new Scanner(System.in);
+
+        Iterator<Literature> it = this.register.getLiteraureIterator();
+        if (!it.hasNext()) {
+            System.out.println("You cant search any literature because register is empty!");
+        } 
+        else {
+            System.out.println("1.Enter the title of the literature to search:");
+            String searchTitle = reader.next();
+            
+            System.out.println("1.Enter the publisher of the literature to search:");
+            String searchPublisher = reader.next();
+            
+            Literature literatureTitle = register.getLiteratureByTitle(searchTitle);
+            Literature literaturePublisher = register.getLiteratureByPublisher(searchPublisher);
+            
+            if (searchTitle != null && searchPublisher != null) {
+                System.out.println("Found results: \n" + literatureTitle.getTitle() + ", By: " + 
+                                   literaturePublisher.getPublisher());
+            }
+            else {
+                System.out.println("No literature found!");
+            }
+        }
+    }
+    
+    /**
+     * Lists all literature that is in cart.
      */   
     private void viewCart() {
-        printAllLiteratureInList(this.cart.getCartIterator());
+        printAllLiteratureInList(this.cart.getCartIterator(), "Cart is empty!");
     }
 }
