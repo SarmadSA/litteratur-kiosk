@@ -110,4 +110,24 @@ public class Register {
         literatureList.add(new Booklet("Ordliste", "English learner", "School", "EN", "21.07.2012", 14));
         literatureList.add(new Magazine(9 ,"Topp bladet", "Publiseringslaget - topp", "Sport", "NO", "31.07.2001", 26));
     }
+    
+    /**
+     * Sets/Changes literature series states to a new state.
+     * 
+     * @param literature the literature to set series state of. 
+     * @param state the state to set literature series state to.
+     */
+    public void seLiteratureSeriesState(Literature literature, boolean state){
+        Book l1 = (Book) literature;
+        l1.setSeries(state);
+    }
+    
+    /**
+     * Returns ture if register is emptym false otherwise.
+     * 
+     * @return ture if regiser is empty, false otherwise
+     */
+    public boolean isEmpty(){
+        return literatureList.size() <= 0 ;
+    }
 }

@@ -9,7 +9,7 @@
 public class Book extends Literature{
     private String version;
     private String edition;
-    //private boolean isSeries;
+    private boolean isSeries;
     
     /**
      * Constructor for book objects.
@@ -22,11 +22,13 @@ public class Book extends Literature{
      * @param version version of the book
      * @param numberOfPages number of pages of the book
      * @param edition edition of the book
+     * @param isSeries represents whether book is series or not
      */
     public Book(String title, String publisher, String category, String language, String dateOfRelease, String version, String edition,int numberOfPages) {
         super(title, publisher, category, language, dateOfRelease, numberOfPages);
         this.version = version;
         this.edition = edition;
+        this.isSeries = false;
     }
     /**
      * Returns the version of the book
@@ -62,5 +64,23 @@ public class Book extends Literature{
      */
     public void setEdition(String edition) {
         this.edition = edition;
+    }
+
+    /**
+     * Changes/sets the books series state to new state
+     * 
+     * @param state represents the books series state.
+     */
+    public void setSeries(boolean state){
+        this.isSeries = state;
+    }
+    
+    /**
+     * Returns true if book is series, false otherwise.
+     * 
+     * @return the books series state.
+     */
+    public boolean isSeries(){
+        return this.isSeries;
     }
 }

@@ -78,12 +78,21 @@ public class UserInterface {
                     searchRegister();
                     break; 
                     
-                // Quit
+                // Set book to series
                 case 8:
+                    setSeriesState(true);
+                    break;
+                    
+                // Set book to not series
+                case 9:
+                    setSeriesState(false);
+                    break;
+                    
+                // Quit
+                case 10:
                     printQuitMessage();
                     finished = true;
-                    break;   
-
+                    break;
                 // default
                 default:
                     System.out.println("Unknown commend");
@@ -207,7 +216,9 @@ public class UserInterface {
         System.out.println("Type 5 to add a Literature to cart");
         System.out.println("Type 6 to view cart");
         System.out.println("Type 7 to search register by title and publisher");
-        System.out.println("Type 8 to quit");
+        System.out.println("Type 8 to set a book to series");
+        System.out.println("Type 9 to set a book to not series");
+        System.out.println("Type 10 to quit");
     }
     
     /**
@@ -468,5 +479,32 @@ public class UserInterface {
      */   
     private void viewCart() {
         printAllLiteratureInList(this.cart.getCartIterator(), "Cart is empty!");
+    }
+    
+    /**
+     * changes a books series state.
+     */   
+    private void setSeriesState(boolean state){
+        Scanner reader = new Scanner(System.in);
+        if(register.isEmpty()){
+            System.out.println("Register is empty, therfore can't complete this action");
+        }
+        else{
+            System.out.println("Enter the name of the book you want to change the series state of:");
+            String bookTitle = reader.nextLine();
+            Literature literature = register.getLiteratureByTitle(bookTitle);
+            if(literature != null){
+               if(literature instanceof Book){
+                   register.seLiteratureSeriesState(literature, state);
+                   System.out.println("State of: " + literature.getTitle() + ", has been set to: " + state);
+               }
+               else{
+                   System.out.println("The literature you are trying to change series state of is not a book, please search for a book!");
+               }
+            }
+           else{
+               System.out.println("Literature not found in register");
+           }   
+        }
     }
 }
