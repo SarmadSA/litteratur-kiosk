@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -44,6 +45,7 @@ public class UserInterface {
                 case 0:
                     printMenu();
                     break;
+                    
                 case 1:
                     fillLiteratureList();
                     break;
@@ -413,10 +415,28 @@ public class UserInterface {
         
         // Number of pages
         System.out.println("6.Enter number of pages of the booklet:");
-        numberOfPages = reader.nextInt();
+        int attempts = 0;
+        boolean sucsess = false;
+        do{
+            try{
+                Scanner intReader = new Scanner(System.in);
+                numberOfPages = intReader.nextInt();  
+                this.register.addLiterature(new Booklet(title, publisher, category, language, dateOfRelease, numberOfPages));
+                System.out.println("Booklet: " + title + " has been added to register!");
+                sucsess = true;
+            }
+            catch(InputMismatchException e){
+                if(attempts < 2){
+                    System.out.println("Number of pages can not be a string! Please enter a number:");
+                }
+                attempts++;
+            }
+        }
+        while(!sucsess && attempts < 3);
         
-        this.register.addLiterature(new Booklet(title, publisher, category, language, dateOfRelease, numberOfPages));
-        System.out.println("Booklet: " + title + " has been added to register!");
+        if(!sucsess){
+            System.out.println("Was not able to add a new booklet, please try again later!");
+        }
     }
     
     /**
@@ -456,10 +476,10 @@ public class UserInterface {
         } 
         else {
             System.out.println("1.Enter the title of the literature to search:");
-            String searchTitle = reader.next();
+            String searchTitle = reader.nextLine();
             
-            System.out.println("1.Enter the publisher of the literature to search:");
-            String searchPublisher = reader.next();
+            System.out.println("2.Enter the publisher of the literature to search:");
+            String searchPublisher = reader.nextLine();
             
             Literature literatureTitle = register.getLiteratureByTitle(searchTitle);
             Literature literaturePublisher = register.getLiteratureByPublisher(searchPublisher);

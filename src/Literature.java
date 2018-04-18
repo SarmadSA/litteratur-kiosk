@@ -38,7 +38,7 @@ public class Literature {
      * 
      * @return return the title of the literature
      */
-    protected String getTitle() {
+    protected String getTitle(){
         return title;
     }
     

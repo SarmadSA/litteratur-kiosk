@@ -24,7 +24,7 @@ public class Register {
      *
      * @param literature - the newspaper to add to the register
      */
-    public void addLiterature(Literature literature) {
+    public void addLiterature(Literature literature){
         this.literatureList.add(literature);
     }
 
