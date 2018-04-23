@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -8,12 +9,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
 /**
- *
- * @author E-Dev
+ * Represents graphical user interface.
+ * 
+ * @author Sarmad
  */
 public class GUI extends Application {
     UserInterface userInterface = new UserInterface();
@@ -21,31 +25,56 @@ public class GUI extends Application {
     @Override
     public void start(Stage primaryStage) {
         BorderPane root = new BorderPane();
+        VBox menu = new VBox(8);
+        VBox mainSene = new VBox(8);
         HBox hbox = new HBox(8);
-        VBox vbox = new VBox(8);
-        Button btn = new Button();
-        Button btn2 = new Button();
-        Label textLbl = new Label("Text:");
+        Button btn1 = new Button("Add literature");
+        Button btn2 = new Button("List all literature");
+        Label textLbl = new Label("Literature Register");
+        Scene scene = new Scene(root, 1000, 600);
+        Label textLbl2 = new Label("Welcome to the literature register. \nPlease choose an option from the \nmenu to the left to start the program.");
+        textLbl.setTextFill(Color.web("#ffffff"));
+        textLbl2.setTextFill(Color.web("#0076a3"));
+
+        textLbl.setFont(Font.font("", 18));
+
         
-        btn.setText("Print welcome message");
-        btn2.setText("test button");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+        btn1.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-                System.out.print("Button clicked!");
-                userInterface.printWelcome();
+                System.out.println("Adding literature to register..");
+                //userInterface.printWelcome();
             }
         });
         
-        hbox.getChildren().addAll(btn,btn2,textLbl);
+        String cssLayout = "-fx-background-color: #4f8783;";
+        hbox.setStyle(cssLayout);
+
+        //vbox.setPrefWidth(200);
+        btn1.setMinWidth(150);
+        btn2.setMinWidth(150);
+        
+        //Page title
+        hbox.getChildren().addAll(textLbl);
+        hbox.setPadding(new Insets(20, 12, 20, 12)); //top, bottom, right, left
         root.setTop(hbox);
-        root.setAlignment(hbox, Pos.CENTER);
+        hbox.setAlignment(Pos.CENTER);
+        
+        //selection menu
+        menu.setStyle("-fx-background-color: #d7dae0;");
+        menu.getChildren().addAll(btn1,btn2);
+        menu.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
+        root.setLeft(menu);
+        
+        //Main sene
+        mainSene.getChildren().addAll(textLbl2);
+        mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
+        mainSene.setAlignment(Pos.CENTER);
+        root.setCenter(mainSene);
         //root.getChildren().add(btn);
         
-        Scene scene = new Scene(root, 1000, 600);
-        
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Literatur register");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
