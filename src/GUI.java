@@ -32,7 +32,10 @@ public class GUI extends Application {
         Button btn2 = new Button("List all literature");
         Label textLbl = new Label("Literature Register");
         Scene scene = new Scene(root, 1000, 600);
-        Label textLbl2 = new Label("Welcome to the literature register. \nPlease choose an option from the \nmenu to the left to start the program.");
+        Label textLbl2 = new Label("Welcome to the literature register. "
+                                   + "\nPlease choose an option from the "
+                                   + "\nleft menu to start the application."
+                                   + "\n\nApplication created by:\nSarmad  Saeed");
         textLbl.setTextFill(Color.web("#ffffff"));
         textLbl2.setTextFill(Color.web("#0076a3"));
 
@@ -48,7 +51,7 @@ public class GUI extends Application {
             }
         });
         
-        String cssLayout = "-fx-background-color: #4f8783;";
+        String cssLayout = "-fx-background-color: #0e6d91;";
         hbox.setStyle(cssLayout);
 
         //vbox.setPrefWidth(200);
