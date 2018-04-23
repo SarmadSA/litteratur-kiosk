@@ -1,3 +1,5 @@
+import javafx.application.Application;
+
 /**
  * Represents them main class for the applicatication, 
  * this class is responsible for starting the program.
@@ -7,7 +9,8 @@
  */
 public class Main {
    public static void main(String[] args){
-        UserInterface u1 = new UserInterface();
-        u1.start();   
+       Application.launch(GUI.class, args);
+//       UserInterface u1 = new UserInterface();
+//       u1.start();   
    }
 }

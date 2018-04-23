@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 /**
  * Represents user interface that is responsible for 
- * the communication with the user.
+ * communication with the user.
  *
  * @author Sarmad, Nikita and Kristin
  * @version 2018.04.14
  */
-public class UserInterface {
+public class UserInterface{
 
     private final Register register;
     private final Cart cart;
@@ -25,7 +25,7 @@ public class UserInterface {
     /**
      * Starts the application.
      */
-    public void start() {
+    public void startOld() {
         boolean finished = false;
         int choice = 0;
         
@@ -200,7 +200,7 @@ public class UserInterface {
     /**
      * Prints welcome message-
      */
-    private void printWelcome() {
+    public void printWelcome() {
         System.out.println("***Welocme to the Literature register!***");
     }
 
