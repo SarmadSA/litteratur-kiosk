@@ -70,22 +70,21 @@ public class GUI extends Application {
         
         scene1(primaryStage,menu,header);
         
+        btn1.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                autoFillScene(primaryStage,menu,header);
+                userInterface.fillLiteratureList();
+            }
+        });
+        
         btn3.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
                 scene2(primaryStage,menu,header);
                 System.out.println("Adding literature to register..");
-                //userInterface.printWelcome();
-            }
-        });
-        
-        btn1.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                scene1(primaryStage,menu,header);
-                System.out.println("At home scene");
                 //userInterface.printWelcome();
             }
         });
@@ -122,6 +121,27 @@ public class GUI extends Application {
         Scene scene = new Scene(root, 1000, 600);
         Label textLbl2 = new Label("Scene 2");
         textLbl2.setTextFill(Color.web("#0076a3"));
+        VBox mainSene = new VBox(8);
+        
+        //Main sene
+        mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
+        mainSene.setAlignment(Pos.CENTER);
+        
+        root.setLeft(menu);
+        root.setCenter(mainSene);
+        root.setTop(header);
+        
+        mainSene.getChildren().addAll(textLbl2);
+        primaryStage.setTitle("Literatur register");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    
+    private void autoFillScene(Stage primaryStage, VBox menu, HBox header){
+        BorderPane root = new BorderPane();
+        Scene scene = new Scene(root, 1000, 600);
+        Label textLbl2 = new Label("Register has been filled with literature!");
+        textLbl2.setTextFill(Color.web("#2da331"));
         VBox mainSene = new VBox(8);
         
         //Main sene

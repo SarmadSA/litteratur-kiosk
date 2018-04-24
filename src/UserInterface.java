@@ -192,7 +192,7 @@ public class UserInterface{
     /**
      * Fills the register with predefined literature.
      */
-    private void fillLiteratureList() {
+    public void fillLiteratureList() {
         this.register.fillLiteratureRegister();
         System.out.println("Literature register i filled with Literature");
     }
