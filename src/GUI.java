@@ -34,11 +34,11 @@ public class GUI extends Application {
         Button btn3 = new Button("Add literature");
         Button btn4 = new Button("Remove literature");
         Button btn5 = new Button("Search register");
-        Button btn6 = new Button("Add to card");
-        Button btn7 = new Button("Remove from card");
-        Button btn8 = new Button("View card");
-        Button btn9 = new Button("Series a book");
-        Button btn10 = new Button("UnSeries a book");
+        Button btn6 = new Button("Series a book");
+        Button btn7 = new Button("Unseries a book");
+        Button btn8 = new Button("Add to card");
+        Button btn9 = new Button("Remove from card");
+        Button btn10 = new Button("View card");
         Label textLbl = new Label("Literature Register");
         Scene scene = new Scene(root, 1000, 600);
         Label textLbl2 = new Label("Welcome to the literature register. "
