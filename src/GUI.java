@@ -24,11 +24,13 @@ public class GUI extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        BorderPane root = new BorderPane();
         VBox menu = new VBox(8);
-        VBox mainSene = new VBox(8);
-        HBox hbox = new HBox(8);
-                
+        HBox header = new HBox(8);
+        
+        Label title = new Label("Literature Register");
+        title.setFont(Font.font("", 18));
+        title.setTextFill(Color.web("#ffffff"));
+      
         Button btn1 = new Button("Auto Fill register");
         Button btn2 = new Button("List all literature");
         Button btn3 = new Button("Add literature");
@@ -39,30 +41,7 @@ public class GUI extends Application {
         Button btn8 = new Button("Add to card");
         Button btn9 = new Button("Remove from card");
         Button btn10 = new Button("View card");
-        Label textLbl = new Label("Literature Register");
-        Scene scene = new Scene(root, 1000, 600);
-        Label textLbl2 = new Label("Welcome to the literature register. "
-                                   + "\nPlease choose an option from the "
-                                   + "\nleft menu to start the application."
-                                   + "\n\nApplication created by team 8:\nSarmad Saeed Abbas\nNikita sumahers\nKristin Hagen");
-        textLbl.setTextFill(Color.web("#ffffff"));
-        textLbl2.setTextFill(Color.web("#0076a3"));
-
-        textLbl.setFont(Font.font("", 18));
-
         
-        btn3.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Adding literature to register..");
-                //userInterface.printWelcome();
-            }
-        });
-        
-        String cssLayout = "-fx-background-color: #0e6d91;";
-        hbox.setStyle(cssLayout);
-
         //vbox.setPrefWidth(200);
         btn1.setMinWidth(150);
         btn2.setMinWidth(150);
@@ -74,26 +53,86 @@ public class GUI extends Application {
         btn8.setMinWidth(150);
         btn9.setMinWidth(150);
         btn10.setMinWidth(150);
+       
         
+        String cssLayout = "-fx-background-color: #0e6d91;";
+                
         //Page title
-        hbox.getChildren().addAll(textLbl);
-        hbox.setPadding(new Insets(20, 12, 20, 12)); //top, bottom, right, left
-        root.setTop(hbox);
-        hbox.setAlignment(Pos.CENTER);
+        header.setStyle(cssLayout);
+        header.getChildren().addAll(title);
+        header.setPadding(new Insets(20, 12, 20, 12)); //top, bottom, right, left
+        header.setAlignment(Pos.CENTER);
         
         //selection menu
         menu.setStyle("-fx-background-color: #d7dae0;");
         menu.getChildren().addAll(btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn10);
         menu.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
-        root.setLeft(menu);
+        
+        scene1(primaryStage,menu,header);
+        
+        btn3.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                scene2(primaryStage,menu,header);
+                System.out.println("Adding literature to register..");
+                //userInterface.printWelcome();
+            }
+        });
+        
+        btn1.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                scene1(primaryStage,menu,header);
+                System.out.println("At home scene");
+                //userInterface.printWelcome();
+            }
+        });
+        
+    }
+    
+    private void scene1(Stage primaryStage, VBox menu, HBox header){
+        BorderPane root = new BorderPane();
+        Scene scene = new Scene(root, 1000, 600);
+        VBox mainSene = new VBox(8);
         
         //Main sene
-        mainSene.getChildren().addAll(textLbl2);
         mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
         mainSene.setAlignment(Pos.CENTER);
-        root.setCenter(mainSene);
-        //root.getChildren().add(btn);
         
+        Label textLbl2 = new Label("Welcome to the literature register. "
+                                   + "\nPlease choose an option from the "
+                                   + "\nleft menu to start the application."
+                                   + "\n\nApplication created by team 8:\nSarmad Saeed Abbas\nNikita sumahers\nKristin Hagen");
+        textLbl2.setTextFill(Color.web("#0076a3"));
+        
+        root.setCenter(mainSene);
+        root.setLeft(menu);
+        root.setTop(header);
+
+        mainSene.getChildren().addAll(textLbl2);
+        primaryStage.setTitle("Literatur register");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    
+    private void scene2(Stage primaryStage, VBox menu, HBox header){
+        BorderPane root = new BorderPane();
+        Scene scene = new Scene(root, 1000, 600);
+        Label textLbl2 = new Label("Scene 2");
+        textLbl2.setTextFill(Color.web("#0076a3"));
+        VBox mainSene = new VBox(8);
+        
+        //Main sene
+        mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
+        mainSene.setAlignment(Pos.CENTER);
+        
+        root.setLeft(menu);
+        root.setCenter(mainSene);
+        root.setTop(header);
+        
+        mainSene.getChildren().addAll(textLbl2);
         primaryStage.setTitle("Literatur register");
         primaryStage.setScene(scene);
         primaryStage.show();
