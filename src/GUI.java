@@ -30,6 +30,9 @@ public class GUI extends Application {
         HBox hbox = new HBox(8);
         Button btn1 = new Button("Add literature");
         Button btn2 = new Button("List all literature");
+        Button btn3 = new Button("Auto Fill register");
+        Button btn4 = new Button("Remove literature");
+        Button btn5 = new Button("Search register");
         Label textLbl = new Label("Literature Register");
         Scene scene = new Scene(root, 1000, 600);
         Label textLbl2 = new Label("Welcome to the literature register. "
@@ -57,6 +60,9 @@ public class GUI extends Application {
         //vbox.setPrefWidth(200);
         btn1.setMinWidth(150);
         btn2.setMinWidth(150);
+        btn3.setMinWidth(150);
+        btn4.setMinWidth(150);
+        btn5.setMinWidth(150);
         
         //Page title
         hbox.getChildren().addAll(textLbl);
@@ -66,7 +72,7 @@ public class GUI extends Application {
         
         //selection menu
         menu.setStyle("-fx-background-color: #d7dae0;");
-        menu.getChildren().addAll(btn1,btn2);
+        menu.getChildren().addAll(btn1,btn2,btn3,btn4,btn5);
         menu.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
         root.setLeft(menu);
         
