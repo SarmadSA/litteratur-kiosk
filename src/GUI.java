@@ -28,9 +28,10 @@ public class GUI extends Application {
         VBox menu = new VBox(8);
         VBox mainSene = new VBox(8);
         HBox hbox = new HBox(8);
-        Button btn1 = new Button("Add literature");
+                
+        Button btn1 = new Button("Auto Fill register");
         Button btn2 = new Button("List all literature");
-        Button btn3 = new Button("Auto Fill register");
+        Button btn3 = new Button("Add literature");
         Button btn4 = new Button("Remove literature");
         Button btn5 = new Button("Search register");
         Label textLbl = new Label("Literature Register");
@@ -45,7 +46,7 @@ public class GUI extends Application {
         textLbl.setFont(Font.font("", 18));
 
         
-        btn1.setOnAction(new EventHandler<ActionEvent>() {
+        btn3.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
