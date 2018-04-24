@@ -35,7 +35,7 @@ public class GUI extends Application {
         Label textLbl2 = new Label("Welcome to the literature register. "
                                    + "\nPlease choose an option from the "
                                    + "\nleft menu to start the application."
-                                   + "\n\nApplication created by:\nSarmad  Saeed");
+                                   + "\n\nApplication created by team 8:\nSarmad Saeed Abbas\nNikita sumahers\nKristin Hagen");
         textLbl.setTextFill(Color.web("#ffffff"));
         textLbl2.setTextFill(Color.web("#0076a3"));
 
