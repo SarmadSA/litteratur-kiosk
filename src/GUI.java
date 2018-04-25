@@ -28,6 +28,7 @@ public class GUI extends Application {
         Scene scene = new Scene(root, 1000, 600);
         VBox menu = new VBox(8);
         HBox header = new HBox(8);
+        int buttonWidth = 150;
         
         Label title = new Label("Literature Register");
         title.setFont(Font.font("", 18));
@@ -45,16 +46,16 @@ public class GUI extends Application {
         Button btn10 = new Button("View card");
         
         //vbox.setPrefWidth(200);
-        btn1.setMinWidth(150);
-        btn2.setMinWidth(150);
-        btn3.setMinWidth(150);
-        btn4.setMinWidth(150);
-        btn5.setMinWidth(150);
-        btn6.setMinWidth(150);
-        btn7.setMinWidth(150);
-        btn8.setMinWidth(150);
-        btn9.setMinWidth(150);
-        btn10.setMinWidth(150);
+        btn1.setMinWidth(buttonWidth);
+        btn2.setMinWidth(buttonWidth);
+        btn3.setMinWidth(buttonWidth);
+        btn4.setMinWidth(buttonWidth);
+        btn5.setMinWidth(buttonWidth);
+        btn6.setMinWidth(buttonWidth);
+        btn7.setMinWidth(buttonWidth);
+        btn8.setMinWidth(buttonWidth);
+        btn9.setMinWidth(buttonWidth);
+        btn10.setMinWidth(buttonWidth);
         
         String cssLayout = "-fx-background-color: #0e6d91;";
                 
@@ -78,7 +79,6 @@ public class GUI extends Application {
 
         
         btn1.setOnAction(new EventHandler<ActionEvent>() {
-            
             @Override
             public void handle(ActionEvent event) {
                 autoFillScene(primaryStage,root,scene,menu,header);
@@ -87,7 +87,6 @@ public class GUI extends Application {
         });
         
         btn3.setOnAction(new EventHandler<ActionEvent>() {
-            
             @Override
             public void handle(ActionEvent event) {
                 AddLiteratureScene(primaryStage,root,scene,menu,header);
