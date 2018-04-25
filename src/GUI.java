@@ -24,6 +24,8 @@ public class GUI extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        BorderPane root = new BorderPane();
+        Scene scene = new Scene(root, 1000, 600);
         VBox menu = new VBox(8);
         HBox header = new HBox(8);
         
@@ -68,13 +70,16 @@ public class GUI extends Application {
         menu.getChildren().addAll(btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn10);
         menu.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
         
-        scene1(primaryStage,menu,header);
+        scene1(primaryStage,root,scene,menu,header);
+        primaryStage.setTitle("Literatur register");
+        primaryStage.show();
+
         
         btn1.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-                autoFillScene(primaryStage,menu,header);
+                autoFillScene(primaryStage,root,scene,menu,header);
                 userInterface.fillLiteratureList();
             }
         });
@@ -83,7 +88,7 @@ public class GUI extends Application {
             
             @Override
             public void handle(ActionEvent event) {
-                scene2(primaryStage,menu,header);
+                scene2(primaryStage,root,scene,menu,header);
                 System.out.println("Adding literature to register..");
                 //userInterface.printWelcome();
             }
@@ -91,9 +96,7 @@ public class GUI extends Application {
         
     }
     
-    private void scene1(Stage primaryStage, VBox menu, HBox header){
-        BorderPane root = new BorderPane();
-        Scene scene = new Scene(root, 1000, 600);
+    private void scene1(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header){
         VBox mainSene = new VBox(8);
         
         //Main sene
@@ -111,14 +114,10 @@ public class GUI extends Application {
         root.setTop(header);
 
         mainSene.getChildren().addAll(textLbl2);
-        primaryStage.setTitle("Literatur register");
         primaryStage.setScene(scene);
-        primaryStage.show();
     }
     
-    private void scene2(Stage primaryStage, VBox menu, HBox header){
-        BorderPane root = new BorderPane();
-        Scene scene = new Scene(root, 1000, 600);
+    private void scene2(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header){
         Label textLbl2 = new Label("Scene 2");
         textLbl2.setTextFill(Color.web("#0076a3"));
         VBox mainSene = new VBox(8);
@@ -132,20 +131,16 @@ public class GUI extends Application {
         root.setTop(header);
         
         mainSene.getChildren().addAll(textLbl2);
-        primaryStage.setTitle("Literatur register");
         primaryStage.setScene(scene);
-        primaryStage.show();
     }
     
-    private void autoFillScene(Stage primaryStage, VBox menu, HBox header){
-        BorderPane root = new BorderPane();
-        Scene scene = new Scene(root, 1000, 600);
+    private void autoFillScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header){
         Label textLbl2 = new Label("Register has been filled with literature!");
         textLbl2.setTextFill(Color.web("#2da331"));
         VBox mainSene = new VBox(8);
         
         //Main sene
-        mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
+        mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.CENTER);
         
         root.setLeft(menu);
@@ -153,8 +148,6 @@ public class GUI extends Application {
         root.setTop(header);
         
         mainSene.getChildren().addAll(textLbl2);
-        primaryStage.setTitle("Literatur register");
         primaryStage.setScene(scene);
-        primaryStage.show();
     }
 }
