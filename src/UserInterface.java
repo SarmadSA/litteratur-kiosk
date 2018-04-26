@@ -518,12 +518,7 @@ public class UserInterface extends Application{
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.CENTER);
-        TextArea t1= new TextArea();
-        t1.setPrefHeight(1000);
-        t1.setPrefWidth(1000);
-        t1.setEditable(false);
         root.setCenter(mainSene);
-        String literatureToPrint = "";
                 
         Iterator<Literature> it = iterator;
         if (!it.hasNext()) {
@@ -532,43 +527,51 @@ public class UserInterface extends Application{
             erroMessage.setTextFill(Color.web("#ff0000"));
             mainSene.getChildren().add(erroMessage);
         }
-        while (it.hasNext()) {
-            Literature literature = it.next();
-            if (literature instanceof Book) {
-                Book b = (Book) literature;
-                literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
-                                   "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
-                                   "Date of release: " + b.getDateOfRelease() + "\n" +
-                                   "Number of pages: " + b.getNumberOfPages() + "\n" + "Version: " + b.getVersion() + "\n" +
-                                   "Edition: " + b.getEdition() + "\n\n";
-                
+        else{
+            TextArea t1= new TextArea();
+            t1.setPrefHeight(1000);
+            t1.setPrefWidth(1000);
+            t1.setEditable(false);
+            String literatureToPrint = "";
+            
+            while (it.hasNext()) {
+                Literature literature = it.next();
+                if (literature instanceof Book) {
+                    Book b = (Book) literature;
+                    literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
+                                       "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
+                                       "Date of release: " + b.getDateOfRelease() + "\n" +
+                                       "Number of pages: " + b.getNumberOfPages() + "\n" + "Version: " + b.getVersion() + "\n" +
+                                       "Edition: " + b.getEdition() + "\n\n";
+
+                }
+                else if(literature instanceof Magazine){
+                    Magazine b = (Magazine) literature;
+                    literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
+                                       "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
+                                       "Date of release: " + b.getDateOfRelease() + "\n" +
+                                       "Number of pages: " + b.getNumberOfPages() + "\n" + 
+                                       "Number of releases: " + b.getNumberOfRealeases() + "\n\n";
+                }
+                else if(literature instanceof Newspaper){
+                    Newspaper b = (Newspaper) literature;
+                    literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
+                                       "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
+                                       "Date of release: " + b.getDateOfRelease() + "\n" +
+                                       "Number of pages: " + b.getNumberOfPages() + "\n" + 
+                                       "Number of releases: " + b.getNumberOfRealeases() + "\n\n";
+                }
+                else if(literature instanceof Booklet){
+                    Booklet b = (Booklet) literature;
+                    literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
+                                       "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
+                                       "Date of release: " + b.getDateOfRelease() + "\n" +
+                                       "Number of pages: " + b.getNumberOfPages() + "\n\n";                
+                }
             }
-            else if(literature instanceof Magazine){
-                Magazine b = (Magazine) literature;
-                literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
-                                   "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
-                                   "Date of release: " + b.getDateOfRelease() + "\n" +
-                                   "Number of pages: " + b.getNumberOfPages() + "\n" + 
-                                   "Number of releases: " + b.getNumberOfRealeases() + "\n\n";
-            }
-            else if(literature instanceof Newspaper){
-                Newspaper b = (Newspaper) literature;
-                literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
-                                   "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
-                                   "Date of release: " + b.getDateOfRelease() + "\n" +
-                                   "Number of pages: " + b.getNumberOfPages() + "\n" + 
-                                   "Number of releases: " + b.getNumberOfRealeases() + "\n\n";
-            }
-            else if(literature instanceof Booklet){
-                Booklet b = (Booklet) literature;
-                literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
-                                   "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
-                                   "Date of release: " + b.getDateOfRelease() + "\n" +
-                                   "Number of pages: " + b.getNumberOfPages() + "\n\n";                
-            }
+            t1.setText(literatureToPrint);
+            mainSene.getChildren().add(t1);
         }
-        t1.setText(literatureToPrint);
-        mainSene.getChildren().add(t1);
         primaryStage.setScene(scene);
     }
 }
