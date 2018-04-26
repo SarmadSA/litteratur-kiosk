@@ -82,7 +82,7 @@ public class GUI extends Application {
             @Override
             public void handle(ActionEvent event) {
                 autoFillScene(primaryStage,root,scene,menu,header);
-                userInterface.fillLiteratureList();
+                //userInterface.fillLiteratureList();
             }
         });
         

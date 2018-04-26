@@ -65,20 +65,13 @@ public class UserInterface extends Application{
     /**
      * Fills the register with predefined literature.
      */
-    public void fillLiteratureList() {
+    private void fillLiteratureList() {
         this.register.fillLiteratureRegister();
         System.out.println("Literature register i filled with Literature");
     }
-
-    /**
-     * Prints welcome message-
-     */
-    public void printWelcome() {
-        System.out.println("***Welocme to the Literature register!***");
-    }
     
     /**
-     * Prints type to add menu.
+     * Prints "type-to-add" menu.
      */
     private void printAddOptionsMenu() {
         System.out.print("Choose type of literature you want to add: \n 1.Book \n 2.Newspaper \n 3.Magazin \n 4.Booklet \n");
