@@ -627,7 +627,7 @@ public class UserInterface extends Application{
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.CENTER);
-        TextArea t1 = new TextArea();
+        TextArea t1= new TextArea();
         t1.setPrefHeight(500);
         t1.setPrefWidth(500);
         t1.setEditable(false);
@@ -636,7 +636,10 @@ public class UserInterface extends Application{
                 
         Iterator<Literature> it = register.getLiteraureIterator();
         if (!it.hasNext()) {
-            System.out.println("register is empty");
+            System.out.println("Register is empty");
+            Label erroMessage = new Label("Register is empty");
+            erroMessage.setTextFill(Color.web("#ff0000"));
+            mainSene.getChildren().add(erroMessage);
         }
         while (it.hasNext()) {
             Literature literature = it.next();
@@ -674,7 +677,7 @@ public class UserInterface extends Application{
             }
         }
         t1.setText(literatureToPrint);
-        mainSene.getChildren().addAll(t1);
+        mainSene.getChildren().add(t1);
         primaryStage.setScene(scene);
     }
     
