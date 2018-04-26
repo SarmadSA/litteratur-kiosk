@@ -427,7 +427,7 @@ public class UserInterface extends Application{
         root.setTop(header);
         root.setLeft(menu);
                 
-        startScene(primaryStage,root,scene,menu,header);
+        startScene(primaryStage,root,scene);
         primaryStage.setTitle("Literatur register");
         primaryStage.show();
 
@@ -435,7 +435,7 @@ public class UserInterface extends Application{
         btn1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                autoFillScene(primaryStage,root,scene,menu,header);
+                autoFillScene(primaryStage,root,scene);
                 fillLiteratureList();
             }
         });
@@ -443,7 +443,7 @@ public class UserInterface extends Application{
         btn2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                listLiteratureScene(primaryStage,root,scene,menu,header,register.getLiteraureIterator(), "Register is empty");
+                listLiteratureScene(primaryStage,root,scene,register.getLiteraureIterator(), "Register is empty");
             }
         });
         
@@ -457,13 +457,13 @@ public class UserInterface extends Application{
         btn10.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                listLiteratureScene(primaryStage,root,scene,menu,header,cart.getCartIterator(), "Cart is empty");
+                listLiteratureScene(primaryStage,root,scene,cart.getCartIterator(), "Cart is empty");
             }
         });
         
     }
     
-    private void startScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header){
+    private void startScene(Stage primaryStage, BorderPane root, Scene scene){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.CENTER);
@@ -494,7 +494,7 @@ public class UserInterface extends Application{
         primaryStage.setScene(scene);
     }
     
-    private void autoFillScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header){
+    private void autoFillScene(Stage primaryStage, BorderPane root, Scene scene){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.CENTER);
@@ -514,7 +514,7 @@ public class UserInterface extends Application{
     * @param iterator the iterator (that returns/holds a collection) to go through and print.
     * @param emptyCollectionMessage the message to print when there is nothing to print
     */
-    private void listLiteratureScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header, Iterator iterator, String emptyCollectionMessage){
+    private void listLiteratureScene(Stage primaryStage, BorderPane root, Scene scene, Iterator iterator, String emptyCollectionMessage){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.CENTER);
