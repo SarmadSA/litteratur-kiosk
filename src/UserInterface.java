@@ -16,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javax.swing.JTextArea;
 
 /**
  * Represents user interface that is responsible for 
@@ -36,94 +35,6 @@ public class UserInterface extends Application{
     public UserInterface() {
         this.register = new Register();
         this.cart = new Cart();
-    }
-    
-    /**
-     * Starts the application.
-     */
-    public void startOld() {
-        boolean finished = false;
-        int choice = 0;
-        
-        printWelcome();
-        printMenu();
-        while (!finished) {
-            Scanner reader = new Scanner(System.in);
-
-            if (reader.hasNextInt()) {
-                choice = reader.nextInt();
-            } 
-            else {
-                // Set choice to an invalid value
-                choice = 99;
-            }
-            switch (choice) {
-                case 0:
-                    printMenu();
-                    break;
-                    
-                case 1:
-                    fillLiteratureList();
-                    break;
-
-                // print all literature in register
-                case 2:
-                    viewRegister();
-                    break;
-
-                // Delete chosen literature
-                case 3:
-                    removeLiteratureByTitle();
-                    break;
-
-                // Adde literature to register
-                case 4:
-                    addToRegister();
-                    break;
-                
-                //Add to cart  
-                case 5:
-                    addLiteratureToCart();
-                    break;
-                    
-                // View cart
-                case 6:
-                    viewCart();
-                    break;
-                
-                // search register
-                case 7:
-                    searchRegister();
-                    break; 
-                    
-                // Set book to series
-                case 8:
-                    setSeriesState(true);
-                    break;
-                    
-                // Set book to not series
-                case 9:
-                    setSeriesState(false);
-                    break;
-                    
-                // Quit
-                case 10:
-                    printQuitMessage();
-                    finished = true;
-                    break;
-                // default
-                default:
-                    System.out.println("Unknown commend");
-                    break;
-            }
-        }
-    }
-
-    /**
-     * Prints quit message.
-     */
-    private void printQuitMessage() {
-        System.out.println("Thank you for visiting our register, Bye..");
     }
 
     /**
@@ -151,13 +62,6 @@ public class UserInterface extends Application{
         }
     }
     
-   /**
-    * prints all avalible literature in the register.
-    */
-    private void viewRegister(){
-        printAllLiteratureInList(this.register.getLiteraureIterator(), "Register is empty!");
-    }
-    
     /**
      * Fills the register with predefined literature.
      */
@@ -171,25 +75,6 @@ public class UserInterface extends Application{
      */
     public void printWelcome() {
         System.out.println("***Welocme to the Literature register!***");
-    }
-
-    /**
-     * Prints menu choices.
-     */
-    private void printMenu() {
-        System.out.println();
-        System.out.println("***Menu***");
-        System.out.println("Type 0 to show menu");
-        System.out.println("Type 1 to fill register with Literature");
-        System.out.println("Type 2 to list all available Literature");
-        System.out.println("Type 3 to remove a Literature");
-        System.out.println("Type 4 to add a Literature to register");
-        System.out.println("Type 5 to add a Literature to cart");
-        System.out.println("Type 6 to view cart");
-        System.out.println("Type 7 to search register by title and publisher");
-        System.out.println("Type 8 to set a book to series");
-        System.out.println("Type 9 to set a book to not series");
-        System.out.println("Type 10 to quit");
     }
     
     /**
@@ -464,13 +349,6 @@ public class UserInterface extends Application{
     }
     
     /**
-     * Lists all literature that is in cart.
-     */   
-    private void viewCart() {
-        printAllLiteratureInList(this.cart.getCartIterator(), "Cart is empty!");
-    }
-    
-    /**
      * changes a books series state.
      */   
     private void setSeriesState(boolean state){
@@ -491,7 +369,7 @@ public class UserInterface extends Application{
                    System.out.println("The literature you are trying to change series state of is not a book, please search for a book!");
                }
             }
-           else{
+            else{
                System.out.println("Literature not found in register");
            }   
         }
@@ -565,7 +443,7 @@ public class UserInterface extends Application{
         btn2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                listLiteratureScene(primaryStage,root,scene,menu,header);
+                listLiteratureScene(primaryStage,root,scene,menu,header,register.getLiteraureIterator(), "Register is empty");
             }
         });
         
@@ -573,6 +451,13 @@ public class UserInterface extends Application{
             @Override
             public void handle(ActionEvent event) {
                 AddLiteratureScene(primaryStage,root,scene,menu,header);
+            }
+        });
+        
+        btn10.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                listLiteratureScene(primaryStage,root,scene,menu,header,cart.getCartIterator(), "Cart is empty");
             }
         });
         
@@ -622,22 +507,28 @@ public class UserInterface extends Application{
         mainSene.getChildren().addAll(textLbl2);
         primaryStage.setScene(scene);
     }
-    
-    private void listLiteratureScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header){
+   
+   /**
+    * Prints all avalible literature in the given iterator.
+    * 
+    * @param iterator the iterator (that returns/holds a collection) to go through and print.
+    * @param emptyCollectionMessage the message to print when there is nothing to print
+    */
+    private void listLiteratureScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header, Iterator iterator, String emptyCollectionMessage){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.CENTER);
         TextArea t1= new TextArea();
-        t1.setPrefHeight(500);
-        t1.setPrefWidth(500);
+        t1.setPrefHeight(1000);
+        t1.setPrefWidth(1000);
         t1.setEditable(false);
         root.setCenter(mainSene);
         String literatureToPrint = "";
                 
-        Iterator<Literature> it = register.getLiteraureIterator();
+        Iterator<Literature> it = iterator;
         if (!it.hasNext()) {
-            System.out.println("Register is empty");
-            Label erroMessage = new Label("Register is empty");
+            System.out.println(emptyCollectionMessage);
+            Label erroMessage = new Label(emptyCollectionMessage);
             erroMessage.setTextFill(Color.web("#ff0000"));
             mainSene.getChildren().add(erroMessage);
         }
@@ -680,52 +571,4 @@ public class UserInterface extends Application{
         mainSene.getChildren().add(t1);
         primaryStage.setScene(scene);
     }
-    
-    /**
-    * Prints all avalible literature in the given iterator.
-    * 
-    * @param iterator the iterator (that returns/holds a collection) to go through and print.
-    * @param emptyCollectionMessage the message to print when there is nothing to print
-    */
-    private void printAllLiteratureInList(Iterator iterator, String emptyCollectionMessage) {
-        Iterator<Literature> it = iterator;
-        if (!it.hasNext()) {
-            System.out.println(emptyCollectionMessage);
-        }
-        while (it.hasNext()) {
-            Literature literature = it.next();
-            if (literature instanceof Book) {
-                Book b = (Book) literature;
-                System.out.println("Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
-                                   "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
-                                   "Date of release: " + b.getDateOfRelease() + "\n" +
-                                   "Number of pages: " + b.getNumberOfPages() + "\n" + "Version: " + b.getVersion() + "\n" +
-                                   "Edition: " + b.getEdition() + "\n");
-            }
-            else if(literature instanceof Magazine){
-                Magazine b = (Magazine) literature;
-                System.out.println("Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
-                                   "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
-                                   "Date of release: " + b.getDateOfRelease() + "\n" +
-                                   "Number of pages: " + b.getNumberOfPages() + "\n" + 
-                                   "Number of releases: " + b.getNumberOfRealeases() + "\n");
-            }
-            else if(literature instanceof Newspaper){
-                Newspaper b = (Newspaper) literature;
-                System.out.println("Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
-                                   "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
-                                   "Date of release: " + b.getDateOfRelease() + "\n" +
-                                   "Number of pages: " + b.getNumberOfPages() + "\n" + 
-                                   "Number of releases: " + b.getNumberOfRealeases() + "\n");
-            }
-            else if(literature instanceof Booklet){
-                Booklet b = (Booklet) literature;
-                System.out.println("Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n" + 
-                                   "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n" + 
-                                   "Date of release: " + b.getDateOfRelease() + "\n" +
-                                   "Number of pages: " + b.getNumberOfPages() + "\n");                
-            }
-        }
-    }
-
 }
