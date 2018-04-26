@@ -41,9 +41,9 @@ public class GUI extends Application {
         Button btn5 = new Button("Search register");
         Button btn6 = new Button("Series a book");
         Button btn7 = new Button("Unseries a book");
-        Button btn8 = new Button("Add to card");
-        Button btn9 = new Button("Remove from card");
-        Button btn10 = new Button("View card");
+        Button btn8 = new Button("Add to cart");
+        Button btn9 = new Button("Remove from cart");
+        Button btn10 = new Button("View cart");
         
         //vbox.setPrefWidth(200);
         btn1.setMinWidth(buttonWidth);
@@ -73,7 +73,7 @@ public class GUI extends Application {
         root.setTop(header);
         root.setLeft(menu);
                 
-        scene1(primaryStage,root,scene,menu,header);
+        startScene(primaryStage,root,scene,menu,header);
         primaryStage.setTitle("Literatur register");
         primaryStage.show();
 
@@ -95,7 +95,7 @@ public class GUI extends Application {
         
     }
     
-    private void scene1(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header){
+    private void startScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.CENTER);
@@ -127,6 +127,20 @@ public class GUI extends Application {
     }
     
     private void autoFillScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header){
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12));
+        mainSene.setAlignment(Pos.CENTER);
+        
+        root.setCenter(mainSene);
+        
+        Label textLbl2 = new Label("Register has been filled with literature!");
+        textLbl2.setTextFill(Color.web("#2da331"));
+        
+        mainSene.getChildren().addAll(textLbl2);
+        primaryStage.setScene(scene);
+    }
+    
+    private void listLiteratureScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.CENTER);
