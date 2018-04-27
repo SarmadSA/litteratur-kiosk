@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -447,6 +448,14 @@ public class UserInterface extends Application{
             }
         });
         
+        btn4.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                removeLiteratureScene(primaryStage,root,scene);
+            }
+        });
+        
+        
         btn10.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -498,6 +507,20 @@ public class UserInterface extends Application{
         textLbl2.setTextFill(Color.web("#2da331"));
         
         mainSene.getChildren().addAll(textLbl2);
+        primaryStage.setScene(scene);
+    }
+    
+    private void removeLiteratureScene(Stage primaryStage, BorderPane root, Scene scene){
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12));
+        root.setCenter(mainSene);
+        
+        Label textLbl2 = new Label("Enter the title of the literature to remove:");
+        TextField textField = new TextField();
+        //textField.setPrefWidth(100);
+        Button search = new Button("Find and remove");
+        
+        mainSene.getChildren().addAll(textLbl2,textField,search);
         primaryStage.setScene(scene);
     }
    
