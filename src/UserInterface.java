@@ -651,4 +651,19 @@ public class UserInterface extends Application {
             }
         }
     }
+    
+    
+     private void searchLiteratureScene(Stage primaryStage, BorderPane root, Scene scene){
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
+        
+        root.setCenter(mainSene);
+        
+        Label textLbl2 = new Label("Search");
+        TextField searchField = new TextField();
+        
+        Button searchButton = new Button("Search");
+        mainSene.getChildren().addAll(textLbl2, searchField, searchButton);
+        primaryStage.setScene(scene);
+    }
 }
