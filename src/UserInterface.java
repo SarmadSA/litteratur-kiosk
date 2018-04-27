@@ -311,13 +311,231 @@ public class UserInterface extends Application {
 
         Label textLb = new Label("Choose a litterature type");
 
-        //MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+        MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
 
-        //mainSene.getChildren().addAll(textLb, menuButton);
+        mainSene.getChildren().addAll(textLb, menuButton);
         primaryStage.setScene(scene);
 
     }
 
+    private MenuButton menuButton(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+
+        MenuItem menuItem1 = new MenuItem("Book");
+        MenuItem menuItem2 = new MenuItem("Newspaper");
+        MenuItem menuItem3 = new MenuItem("Magazine");
+        MenuItem menuItem4 = new MenuItem("Booklet");
+
+        MenuButton menuButton = new MenuButton("Litterature", null, menuItem1, menuItem2, menuItem3, menuItem4);
+
+        menuItem1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                addBookScene(primaryStage, root, scene, menu, header);
+            }
+        });
+        menuItem2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                addNewspaperScene(primaryStage, root, scene, menu, header);
+            }
+        });
+        menuItem3.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                addMagazineScene(primaryStage, root, scene, menu, header);
+            }
+        });
+        menuItem4.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                addBookletScene(primaryStage, root, scene, menu, header);
+            }
+        });
+
+        return menuButton;
+    }
+
+    private void addNewspaperScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12));
+        mainSene.setAlignment(Pos.TOP_LEFT);
+
+        root.setCenter(mainSene);
+
+        MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+
+        Label textLb1 = new Label("Title: ");
+        TextField titleField = new TextField();
+
+        Label textLb2 = new Label("Publisher: ");
+        TextField pubField = new TextField();
+
+        Label textLb3 = new Label("Category: ");
+        TextField catField = new TextField();
+
+        Label textLb4 = new Label("Language: ");
+        TextField lanField = new TextField();
+
+        Label textLb5 = new Label("Date of release: ");
+        TextField dorField = new TextField();
+
+        Label textLb6 = new Label("Number of pages: ");
+        TextField nopField = new TextField();
+
+        Label textLb7 = new Label("Number of realeses: ");
+        TextField norField = new TextField();
+
+        Label textLb8 = new Label("New newspaper is added");
+        textLb8.setTextFill(Color.web("#2da331"));
+
+        Button btn = new Button("Add");
+
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                addNewspaperToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()), Integer.parseInt(norField.getText().trim()));
+                mainSene.getChildren().add(textLb8);
+            }
+        });
+
+        mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, textLb7, norField, btn);
+        primaryStage.setScene(scene);
+    }
+
+    private void addMagazineScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12));
+        mainSene.setAlignment(Pos.TOP_LEFT);
+
+        root.setCenter(mainSene);
+
+        MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+
+        Label textLb1 = new Label("Title: ");
+        TextField titleField = new TextField();
+
+        Label textLb2 = new Label("Publisher: ");
+        TextField pubField = new TextField();
+
+        Label textLb3 = new Label("Category: ");
+        TextField catField = new TextField();
+
+        Label textLb4 = new Label("Language: ");
+        TextField lanField = new TextField();
+
+        Label textLb5 = new Label("Date of release: ");
+        TextField dorField = new TextField();
+
+        Label textLb6 = new Label("Number of pages: ");
+        TextField nopField = new TextField();
+
+        Label textLb7 = new Label("Number of realeses: ");
+        TextField norField = new TextField();
+
+        Label textLb8 = new Label("New magazine is added");
+        textLb8.setTextFill(Color.web("#2da331"));
+
+        Button btn = new Button("Add");
+
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                addMagazineToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()), Integer.parseInt(norField.getText().trim()));
+                mainSene.getChildren().add(textLb8);
+            }
+        });
+
+        mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, textLb7, norField, btn);
+        primaryStage.setScene(scene);
+    }
+
+    private void addBookletScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12));
+        mainSene.setAlignment(Pos.TOP_LEFT);
+
+        root.setCenter(mainSene);
+
+        MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+
+        Label textLb1 = new Label("Title: ");
+        TextField titleField = new TextField();
+
+        Label textLb2 = new Label("Publisher: ");
+        TextField pubField = new TextField();
+
+        Label textLb3 = new Label("Category: ");
+        TextField catField = new TextField();
+
+        Label textLb4 = new Label("Language: ");
+        TextField lanField = new TextField();
+
+        Label textLb5 = new Label("Date of release: ");
+        TextField dorField = new TextField();
+
+        Label textLb6 = new Label("Number of pages: ");
+        TextField nopField = new TextField();
+
+        Label textLb8 = new Label("New booklet is added");
+        textLb8.setTextFill(Color.web("#2da331"));
+
+        Button btn = new Button("Add");
+
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                addBookletToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()));
+                mainSene.getChildren().add(textLb8);
+            }
+        });
+
+        mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, btn);
+        primaryStage.setScene(scene);
+    }
+
+    private void addBookScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12));
+        mainSene.setAlignment(Pos.TOP_LEFT);
+
+        root.setCenter(mainSene);
+
+        MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+
+        Label textLb1 = new Label("Title: ");
+        TextField titleField = new TextField();
+
+        Label textLb2 = new Label("Publisher: ");
+        TextField pubField = new TextField();
+
+        Label textLb3 = new Label("Category: ");
+        TextField catField = new TextField();
+
+        Label textLb4 = new Label("Language: ");
+        TextField lanField = new TextField();
+
+        Label textLb5 = new Label("Date of release: ");
+        TextField dorField = new TextField();
+
+        Label textLb6 = new Label("Number of pages: ");
+        TextField nopField = new TextField();
+
+        Label textLb8 = new Label("New book is added");
+        textLb8.setTextFill(Color.web("#2da331"));
+
+        Button btn = new Button("Add");
+
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                addBookToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()));
+                mainSene.getChildren().add(textLb8);
+            }
+        });
+
+        mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, btn);
+        primaryStage.setScene(scene);
+    }
 
     /**
      * Prints all avalible literature in the given iterator.
