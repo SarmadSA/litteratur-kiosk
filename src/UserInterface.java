@@ -166,7 +166,7 @@ public class UserInterface extends Application {
     @Override
     public void start(Stage primaryStage) {
         BorderPane root = new BorderPane();
-        Scene scene = new Scene(root, 1000, 600);
+        Scene scene = new Scene(root, 1000, 650);
         VBox menu = new VBox(8);
         HBox header = new HBox(8);
         int buttonWidth = 150;
