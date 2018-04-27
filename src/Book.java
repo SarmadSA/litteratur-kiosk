@@ -7,8 +7,6 @@
  * @version 2018.04.13
  */
 public class Book extends Literature{
-    private String version;
-    private String edition;
     private boolean isSeries;
     
     /**
@@ -23,46 +21,9 @@ public class Book extends Literature{
      * @param numberOfPages number of pages of the book
      * @param edition edition of the book
      */
-    public Book(String title, String publisher, String category, String language, String dateOfRelease, String version, String edition,int numberOfPages) {
+    public Book(String title, String publisher, String category, String language, String dateOfRelease, int numberOfPages) {
         super(title, publisher, category, language, dateOfRelease, numberOfPages);
-        this.version = version;
-        this.edition = edition;
         this.isSeries = false;
-    }
-    /**
-     * Returns the version of the book
-     * 
-     * @return the version of the book
-     */
-    public String getVersion() {
-        return version;
-    }
-    
-    /**
-     * Changes/sets the version of book to a new version
-     * 
-     * @param version the new version to set
-     */
-    public void setVersion(String version) {
-        this.version = version;
-    }
-    
-    /**
-     * Returns the edition of the book
-     * 
-     * @return return the edition of the book
-     */
-    public String getEdition() {
-        return edition;
-    }
-    
-    /**
-     * Changes/sets the edtion of book to a new edition
-     * 
-     * @param edition the new version to set
-     */
-    public void setEdition(String edition) {
-        this.edition = edition;
     }
 
     /**

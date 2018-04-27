@@ -106,7 +106,7 @@ public class Register {
      */
     public void fillLiteratureRegister() {
         literatureList.add(new Newspaper(78 ,"VG Avis", "Publiseringslaget - VG", "Sport", "NO", "31.07.2001", 365));
-        literatureList.add(new Book("Objects first with java", "Pearson", "Programming", "EN", "02.10.2017","8th", "global edition", 630));
+        literatureList.add(new Book("Objects first with java", "Pearson", "Programming", "EN", "02.10.2017", 630));
         literatureList.add(new Booklet("Ordliste", "English learner", "School", "EN", "21.07.2012", 14));
         literatureList.add(new Magazine(9 ,"Topp bladet", "Publiseringslaget - topp", "Sport", "NO", "31.07.2001", 26));
     }
