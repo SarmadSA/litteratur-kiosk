@@ -47,17 +47,7 @@ public class UserInterface extends Application {
         this.register.fillLiteratureRegister();
         System.out.println("Literature register i filled with Literature");
     }
-
-    /**
-     * Adds new literature of chosen type to register.
-     *
-     * private void addToRegister() { printAddOptionsMenu(); Scanner reader =
-     * new Scanner(System.in); int option = reader.nextInt(); switch (option) {
-     * case 1: addBookToRegister(); break; case 2: addNewspaperToRegister();
-     * break; case 3: addMagazineToRegister(); break; case 4:
-     * addBookletToRegister(); break; default: System.out.println("Unknown
-     * commend"); break; } }
-     */
+    
     /**
      * Adds new book to register.
      */
