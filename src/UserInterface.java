@@ -236,7 +236,7 @@ public class UserInterface extends Application {
         btn3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                //addNewLiteratureScene(primaryStage, root, scene, menu, header);
+                addNewLiteratureScene(primaryStage, root, scene, menu, header);
             }
         });
         
@@ -301,6 +301,23 @@ public class UserInterface extends Application {
         mainSene.getChildren().addAll(textLbl2);
         primaryStage.setScene(scene);
     }
+
+    private void addNewLiteratureScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12));
+        mainSene.setAlignment(Pos.TOP_LEFT);
+
+        root.setCenter(mainSene);
+
+        Label textLb = new Label("Choose a litterature type");
+
+        //MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+
+        //mainSene.getChildren().addAll(textLb, menuButton);
+        primaryStage.setScene(scene);
+
+    }
+
 
     /**
      * Prints all avalible literature in the given iterator.
