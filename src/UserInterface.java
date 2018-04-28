@@ -102,34 +102,6 @@ public class UserInterface extends Application {
     }
 
     /**
-     * Searches the register by title and publisher and prints found literature.
-     */
-    private String searchRegister(String searchTitle, String searchPublisher) {
-        Iterator<Literature> it = this.register.getLiteraureIterator();
-        String searchMessage = "";
-        
-        if (!it.hasNext()) {
-            searchMessage = "You can't search any literature because register is empty!";
-        } 
-        else if(searchTitle.trim().equals("") || searchPublisher.trim().equals("")){
-            searchMessage = "All field must be filled to preform this search!";
-        }
-        else {
-            Literature literatureTitle = register.getLiteratureByTitle(searchTitle.trim().toLowerCase());
-            Literature literaturePublisher = register.getLiteratureByPublisher(searchPublisher.trim().toLowerCase());
-
-            if (literatureTitle != null && literaturePublisher != null) {
-                searchMessage = "Found results: \n" + literatureTitle.getTitle() + ", By: "
-                                + literaturePublisher.getPublisher();
-            }
-            else {
-                searchMessage = "No literature found!";
-            }
-        }
-        return searchMessage;
-    }
-
-    /**
      * changes a books series state.
      */
     private void setSeriesState(boolean state) {
@@ -662,7 +634,6 @@ public class UserInterface extends Application {
      private void searchLiteratureScene(Stage primaryStage, BorderPane root, Scene scene){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
-        
         root.setCenter(mainSene);
         
         Label sceneTitle = new Label("Search");
@@ -670,19 +641,46 @@ public class UserInterface extends Application {
         TextField titleField = new TextField();
         Label publisher = new Label("Literature putblisher:");
         TextField publisherField = new TextField();
-        
         Button searchButton = new Button("Search");
+        
         searchButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String searchResults = "";
-                Label searchResultsMessage; 
-                searchResults = searchRegister(titleField.getText(), publisherField.getText());
-                searchResultsMessage = new Label(searchResults);
-                mainSene.getChildren().add(searchResultsMessage);   
+                String searchResults = searchRegister(titleField.getText(), publisherField.getText());
+                Label searchResultsMessage = new Label(searchResults);
+                mainSene.getChildren().add(searchResultsMessage);
             }
         });
+        
         mainSene.getChildren().addAll(sceneTitle,title,titleField,publisher,publisherField,searchButton);
         primaryStage.setScene(scene);
+    }
+    
+    /**
+     * Searches the register by title and publisher and prints found literature.
+     */
+    private String searchRegister(String searchTitle, String searchPublisher){
+        Iterator<Literature> it = this.register.getLiteraureIterator();
+        String searchMessage = "";
+        
+        if (!it.hasNext()) {
+            searchMessage = "You can't search any literature because register is empty!";
+        } 
+        else if(searchTitle.trim().equals("") || searchPublisher.trim().equals("")){
+            searchMessage = "All field must be filled to preform this search!";
+        }
+        else {
+            Literature literatureTitle = register.getLiteratureByTitle(searchTitle.trim().toLowerCase());
+            Literature literaturePublisher = register.getLiteratureByPublisher(searchPublisher.trim().toLowerCase());
+
+            if (literatureTitle != null && literaturePublisher != null) {
+                searchMessage = "Found results: \n" + literatureTitle.getTitle() + ", By: "
+                                + literaturePublisher.getPublisher();
+            }
+            else {
+                searchMessage = "No literature found!";
+            }
+        }
+        return searchMessage;
     }
 }
