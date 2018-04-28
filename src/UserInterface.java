@@ -104,29 +104,27 @@ public class UserInterface extends Application {
     /**
      * Searches the register by title and publisher and prints found literature.
      */
-    private void searchRegister() {
-        Scanner reader = new Scanner(System.in);
-
+    private String searchRegister(String searchTitle, String searchPublisher) {
         Iterator<Literature> it = this.register.getLiteraureIterator();
+         String searchMessage = "";
+        
         if (!it.hasNext()) {
-            System.out.println("You cant search any literature because register is empty!");
+            searchMessage = "You can't search any literature because register is empty!";
+            System.out.println(searchMessage);
         } else {
-            System.out.println("1.Enter the title of the literature to search:");
-            String searchTitle = reader.nextLine();
-
-            System.out.println("2.Enter the publisher of the literature to search:");
-            String searchPublisher = reader.nextLine();
-
             Literature literatureTitle = register.getLiteratureByTitle(searchTitle);
             Literature literaturePublisher = register.getLiteratureByPublisher(searchPublisher);
 
             if (literatureTitle != null && literaturePublisher != null) {
-                System.out.println("Found results: \n" + literatureTitle.getTitle() + ", By: "
-                        + literaturePublisher.getPublisher());
+                searchMessage = "Found results: \n" + literatureTitle.getTitle() + ", By: "
+                                + literaturePublisher.getPublisher();
+                System.out.println(searchMessage);
             } else {
-                System.out.println("No literature found!");
+                searchMessage = "No literature found!";
+                System.out.println(searchMessage);
             }
         }
+        return searchMessage;
     }
 
     /**
@@ -665,11 +663,31 @@ public class UserInterface extends Application {
         
         root.setCenter(mainSene);
         
-        Label textLbl2 = new Label("Search");
-        TextField searchField = new TextField();
+        Label sceneTitle = new Label("Search");
+        Label title = new Label("Literature title:");
+        TextField titleField = new TextField();
+        Label publisher = new Label("Literature putblisher:");
+        TextField publisherField = new TextField();
         
         Button searchButton = new Button("Search");
-        mainSene.getChildren().addAll(textLbl2, searchField, searchButton);
+        searchButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String searchResults = "";
+                Label searchResultsMessage; 
+                if(!titleField.getText().equals("") && !publisherField.getText().equals("")){
+                    searchResults = searchRegister(titleField.getText(), publisherField.getText());
+                    searchResultsMessage = new Label(searchResults);
+                    mainSene.getChildren().add(searchResultsMessage);   
+                }
+                else{
+                    searchResults = "Please fill both fields!";
+                    searchResultsMessage = new Label(searchResults);
+                    mainSene.getChildren().add(searchResultsMessage); 
+                }
+            }
+        });
+        mainSene.getChildren().addAll(sceneTitle,title,titleField,publisher,publisherField,searchButton);
         primaryStage.setScene(scene);
     }
 }
