@@ -95,8 +95,9 @@ public class UserInterface extends Application {
             if (literatureToAdd != null) {
                 message = literatureToAdd.getTitle() + " Has been added to cart";
                 cart.addToCart(literatureToAdd);
-            } else {
-                message = "Invalid Literature title, ...";
+            } 
+            else {
+                message = "No literature with this title found!";
             }
         }
         return message;
@@ -221,6 +222,13 @@ public class UserInterface extends Application {
             @Override
             public void handle(ActionEvent event) {
                 addToCartScene(primaryStage,root, scene);
+            }
+        });
+        
+        btn9.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                removeFromCartScene(primaryStage, root, scene);
             }
         });
 
@@ -699,7 +707,7 @@ public class UserInterface extends Application {
         Label fieldLabel = new Label("Enter the title of the literature to add to cart:");
         TextField textField = new TextField();
         
-        Button search = new Button("Find and add");
+        Button search = new Button("Add to cart");
         search.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -710,5 +718,64 @@ public class UserInterface extends Application {
         });
         mainSene.getChildren().addAll(fieldLabel,textField,search);
         primaryStage.setScene(scene);
+    }
+    
+    
+    private void removeFromCartScene(Stage primaryStage, BorderPane root, Scene scene){
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12));
+        root.setCenter(mainSene);
+        
+        Label textLbl2 = new Label("Enter the title of the literature to remove from cart:");
+        TextField textField = new TextField();
+        
+        Button search = new Button("Remove from cart");
+        search.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String literatureToRemove = textField.getText().trim();
+                if(!literatureToRemove.equals("")){
+                    removeLiteratureFromCart(literatureToRemove,mainSene);
+                }
+                else{
+                    System.out.println("Please enter a literature title in the field");
+                    Label message = new Label("Please enter a literature title in the field");
+                    message.setTextFill(Color.web("#ff0000"));
+                    mainSene.getChildren().add(message);
+                }
+            }
+        });
+        mainSene.getChildren().addAll(textLbl2,textField,search);
+        primaryStage.setScene(scene);
+    }
+    
+    /**
+     * Removes literature with given tittle from register.
+     */
+    private void removeLiteratureFromCart(String literatureTitle, VBox mainScene) {
+        Iterator<Literature> it = this.cart.getCartIterator();
+        String message = "";
+        String messageColor = "";
+        Label feedBack;
+        if (!it.hasNext()) {
+            message = "cart is empty! There are no literature to remove.";
+            messageColor = "#ff0000";
+        }
+        else {            
+            Literature literatureToRemove = cart.getLiteratureByTitle(literatureTitle);
+            if (literatureToRemove != null) {
+                System.out.println(literatureToRemove.getTitle() + " Has been removed");
+                message = literatureToRemove.getTitle() + " Has been removed";
+                messageColor = "#2da331";
+                cart.removeFromCart(literatureToRemove.getTitle());
+            } 
+            else {
+                message = "No literature with this title found to remove";
+                messageColor = "#ff0000";
+            }
+        }
+        feedBack = new Label(message);
+        feedBack.setTextFill(Color.web(messageColor));
+        mainScene.getChildren().addAll(feedBack);
     }
 }
