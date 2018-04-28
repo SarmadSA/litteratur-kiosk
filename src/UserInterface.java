@@ -21,8 +21,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- * Represents user interface that is responsible for communication with the
- * user.
+ * Represents user graphical interface that is responsible for
+ * communication with the user.
  *
  * @author Sarmad, Nikita and Kristin
  * @version 2018.04.14
@@ -77,28 +77,29 @@ public class UserInterface extends Application {
     }
 
     /**
-     * Adds chosen literature to cart.
+     * Adds literature with given title to cart, and returns a message indicating
+     * wether the adding prosess was successfull or not.
      */
-    private void addLiteratureToCart() {
-        Scanner reader = new Scanner(System.in);
-
+    private String addLiteratureToCart(String literatureTitle) {
         Iterator<Literature> it = this.register.getLiteraureIterator();
+        String message = "";
+        
         if (!it.hasNext()) {
-            System.out.println("You cant add any literature to cart because register is empty!");
-        } else {
-            String titleIncludes = "";
-            System.out.println("Insert the title of the literature to add to cart:");
-
-            if (reader.hasNext()) {
-                titleIncludes = reader.next();
-            }
-            if (register.getLiteratureByTitle(titleIncludes) != null) {
-                System.out.println(register.getLiteratureByTitle(titleIncludes).getTitle() + " Has been added to cart");
-                cart.addToCart(register.getLiteratureByTitle(titleIncludes));
+            message = "You cant add any literature to cart because register is empty!";
+        } 
+        else if(literatureTitle.trim().equals("")){
+            message = "Please fill the field!";
+        }
+        else {
+            Literature literatureToAdd = register.getLiteratureByTitle(literatureTitle.trim());
+            if (literatureToAdd != null) {
+                message = literatureToAdd.getTitle() + " Has been added to cart";
+                cart.addToCart(literatureToAdd);
             } else {
-                System.out.println("Invalid Literature title, ...");
+                message = "Invalid Literature title, ...";
             }
         }
+        return message;
     }
 
     /**
@@ -213,6 +214,13 @@ public class UserInterface extends Application {
             @Override
             public void handle(ActionEvent event) {
             searchLiteratureScene(primaryStage,root,scene);
+            }
+        });
+        
+        btn8.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                addToCartScene(primaryStage,root, scene);
             }
         });
 
@@ -538,7 +546,7 @@ public class UserInterface extends Application {
                     literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n"
                             + "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n"
                             + "Date of release: " + b.getDateOfRelease() + "\n"
-                            + "Number of pages: " + b.getNumberOfPages() + "\n" + "\n\n";
+                            + "Number of pages: " + b.getNumberOfPages() + "\n\n";
                 } else if (literature instanceof Magazine) {
                     Magazine b = (Magazine) literature;
                     literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n"
@@ -630,7 +638,7 @@ public class UserInterface extends Application {
     }
     
     
-     private void searchLiteratureScene(Stage primaryStage, BorderPane root, Scene scene){
+    private void searchLiteratureScene(Stage primaryStage, BorderPane root, Scene scene){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
         root.setCenter(mainSene);
@@ -681,5 +689,26 @@ public class UserInterface extends Application {
             }
         }
         return searchMessage;
+    }
+    
+    private void addToCartScene(Stage primaryStage, BorderPane root, Scene scene){
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12));
+        root.setCenter(mainSene);
+        
+        Label fieldLabel = new Label("Enter the title of the literature to add to cart:");
+        TextField textField = new TextField();
+        
+        Button search = new Button("Find and add");
+        search.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String literatureToAdd = textField.getText().trim();
+                Label message = new Label(addLiteratureToCart(literatureToAdd));
+                mainSene.getChildren().add(message);
+            }
+        });
+        mainSene.getChildren().addAll(fieldLabel,textField,search);
+        primaryStage.setScene(scene);
     }
 }
