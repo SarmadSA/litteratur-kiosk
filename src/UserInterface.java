@@ -128,7 +128,7 @@ public class UserInterface extends Application {
     @Override
     public void start(Stage primaryStage) {
         BorderPane root = new BorderPane();
-        Scene scene = new Scene(root, 1000, 650);
+        Scene scene = new Scene(root, 1200, 750);
         VBox menu = new VBox(8);
         HBox header = new HBox(8);
         int buttonWidth = 150;
@@ -241,21 +241,7 @@ public class UserInterface extends Application {
         mainSene.getChildren().addAll(textLbl2);
         primaryStage.setScene(scene);
     }
-
-    private void AddLiteratureScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
-        VBox mainSene = new VBox(8);
-        mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
-        mainSene.setAlignment(Pos.CENTER);
-
-        root.setCenter(mainSene);
-
-        Label textLbl2 = new Label("Scene 2");
-        textLbl2.setTextFill(Color.web("#0076a3"));
-
-        mainSene.getChildren().addAll(textLbl2);
-        primaryStage.setScene(scene);
-    }
-
+    
     private void autoFillScene(Stage primaryStage, BorderPane root, Scene scene) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
