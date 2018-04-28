@@ -51,7 +51,7 @@ public class UserInterface extends Application {
     /**
      * Adds new book to register.
      */
-    private void addBookToRegister(String title, String publisher, String category, String language, String dateOfRelese, int numberOfPages) {
+    private void addBookToRegister(String title, String publisher, String category, String language, String dateOfRelese, int numberOfPages) throws Exception{
         this.register.addLiterature(new Book(title, publisher, category, language, dateOfRelese, numberOfPages));
     }
 
@@ -482,8 +482,13 @@ public class UserInterface extends Application {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addBookToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()));
-                mainSene.getChildren().add(textLb8);
+                try{
+                    addBookToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()));
+                    mainSene.getChildren().add(textLb8);
+                }
+                catch(Exception e){
+                    mainSene.getChildren().add(new Label("Number of pages must be an integer!"));
+                }
             }
         });
 
