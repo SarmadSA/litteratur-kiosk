@@ -603,9 +603,6 @@ public class UserInterface extends Application {
         
         Label textLbl2 = new Label("Enter the title of the literature to remove:");
         TextField textField = new TextField();
-        String submittionMessage = "";
-        
-        Label feedBack;
         
         Button search = new Button("Find and remove");
         search.setOnAction(new EventHandler<ActionEvent>() {
@@ -613,26 +610,32 @@ public class UserInterface extends Application {
             public void handle(ActionEvent event) {
                 String literatureToRemove = textField.getText().trim();
                 if(!literatureToRemove.equals("")){
-                    removeLiteratureByTitle(literatureToRemove);
-                    //submittionMessage = " been removed";
+                    removeLiteratureByTitle(literatureToRemove,mainSene);
                 }
                 else{
                     System.out.println("Please enter a literature title in the field");
+                    Label message = new Label("Please enter a literature title in the field");
+                    message.setTextFill(Color.web("#ff0000"));
+                    mainSene.getChildren().add(message);
                 }
             }
         });
-        feedBack = new Label(submittionMessage);
-        mainSene.getChildren().addAll(textLbl2,textField,search,feedBack);
+        mainSene.getChildren().addAll(textLbl2,textField,search);
         primaryStage.setScene(scene);
     }
 
     /**
      * Removes literature with given tittle from register.
      */
-    private void removeLiteratureByTitle(String literatureTitle) {
+    private void removeLiteratureByTitle(String literatureTitle, VBox mainScene) {
         Iterator<Literature> it = this.register.getLiteraureIterator();
+        String message = "";
+        String messageColor = "";
+        Label feedBack;
         if (!it.hasNext()) {
             System.out.println("Register is empty! There are no literature to remove.");
+            message = "Register is empty! There are no literature to remove.";
+            messageColor = "#ff0000";
         }
         else {
             System.out.println("Insert the title of the literature to remove:");
@@ -640,12 +643,19 @@ public class UserInterface extends Application {
             Literature literatureToRemove = register.getLiteratureByTitle(literatureTitle);
             if (literatureToRemove != null) {
                 System.out.println(literatureToRemove.getTitle() + " Has been removed");
+                message = literatureToRemove.getTitle() + " Has been removed";
+                messageColor = "#2da331";
                 register.removeByTitleContains(literatureToRemove.getTitle());
             } 
             else {
-                System.out.println("Invalid Literature title..");
+                System.out.println("No literature with this title found to remove");
+                message = "No literature with this title found to remove";
+                messageColor = "#ff0000";
             }
         }
+        feedBack = new Label(message);
+        feedBack.setTextFill(Color.web(messageColor));
+        mainScene.getChildren().addAll(feedBack);
     }
     
     
