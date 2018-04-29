@@ -1,4 +1,3 @@
-import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 import javafx.application.Application;
@@ -21,11 +20,11 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- * Represents user interface that is responsible for communication with the
- * user.
+ * Represents graphical user interface that is responsible for
+ * communication with the user.
  *
  * @author Sarmad, Nikita and Kristin
- * @version 2018.04.14
+ * @version 2018.04.30
  */
 public class UserInterface extends Application {
 
@@ -39,92 +38,13 @@ public class UserInterface extends Application {
         this.register = new Register();
         this.cart = new Cart();
     }
-
-    /**
-     * Fills the register with predefined literature.
-     */
-    private void fillLiteratureList() {
-        this.register.fillLiteratureRegister();
-        System.out.println("Literature register i filled with Literature");
-    }
     
     /**
-     * Adds new book to register.
+     * Start the application, and careates the start scene
+     * that includes the selection menu and the header.
+     * 
+     * @param primaryStage the primary stage.
      */
-    private void addBookToRegister(String title, String publisher, String category, String language, String dateOfRelese, int numberOfPages){
-        this.register.addLiterature(new Book(title, publisher, category, language, dateOfRelese, numberOfPages));
-    }
-
-    /**
-     * Add new newspaper to the register.
-     */
-    private void addNewspaperToRegister(String title, String publisher, String category, String language, String dateOfRelease, int numberOfPages, int numberOfReleases) {
-        this.register.addLiterature(new Newspaper(numberOfReleases, title, publisher, category, language, dateOfRelease, numberOfPages));
-    }
-
-    /**
-     * Adds new magazine to register.
-     */
-    private void addMagazineToRegister(String title, String publisher, String category, String language, String dateOfRelease, int numberOfPages, int numberOfReleases) {
-        this.register.addLiterature(new Magazine(numberOfReleases, title, publisher, category, language, dateOfRelease, numberOfPages));
-    }
-
-    /**
-     * Adds new booklet to register.
-     */
-    private void addBookletToRegister(String title, String publisher, String category, String language, String dateOfRelese, int numberOfPages) {
-        this.register.addLiterature(new Booklet(title, publisher, category, language, dateOfRelese, numberOfPages));
-    }
-
-    /**
-     * Adds chosen literature to cart.
-     */
-    private void addLiteratureToCart() {
-        Scanner reader = new Scanner(System.in);
-
-        Iterator<Literature> it = this.register.getLiteraureIterator();
-        if (!it.hasNext()) {
-            System.out.println("You cant add any literature to cart because register is empty!");
-        } else {
-            String titleIncludes = "";
-            System.out.println("Insert the title of the literature to add to cart:");
-
-            if (reader.hasNext()) {
-                titleIncludes = reader.next();
-            }
-            if (register.getLiteratureByTitle(titleIncludes) != null) {
-                System.out.println(register.getLiteratureByTitle(titleIncludes).getTitle() + " Has been added to cart");
-                cart.addToCart(register.getLiteratureByTitle(titleIncludes));
-            } else {
-                System.out.println("Invalid Literature title, ...");
-            }
-        }
-    }
-
-    /**
-     * changes a books series state.
-     */
-    private void setSeriesState(boolean state) {
-        Scanner reader = new Scanner(System.in);
-        if (register.isEmpty()) {
-            System.out.println("Register is empty, therfore can't complete this action");
-        } else {
-            System.out.println("Enter the name of the book you want to change the series state of:");
-            String bookTitle = reader.nextLine();
-            Literature literature = register.getLiteratureByTitle(bookTitle);
-            if (literature != null) {
-                if (literature instanceof Book) {
-                    register.seLiteratureSeriesState(literature, state);
-                    System.out.println("State of: " + literature.getTitle() + ", has been set to: " + state);
-                } else {
-                    System.out.println("The literature you are trying to change series state of is not a book, please search for a book!");
-                }
-            } else {
-                System.out.println("Literature not found in register");
-            }
-        }
-    }
-
     @Override
     public void start(Stage primaryStage) {
         BorderPane root = new BorderPane();
@@ -148,7 +68,6 @@ public class UserInterface extends Application {
         Button btn9 = new Button("Remove from cart");
         Button btn10 = new Button("View cart");
 
-        //vbox.setPrefWidth(200);
         btn1.setMinWidth(buttonWidth);
         btn2.setMinWidth(buttonWidth);
         btn3.setMinWidth(buttonWidth);
@@ -168,7 +87,7 @@ public class UserInterface extends Application {
         header.setPadding(new Insets(20, 12, 20, 12)); //top, bottom, right, left
         header.setAlignment(Pos.CENTER);
 
-        //selection menu
+        //selection menu (menu to the left)
         menu.setStyle("-fx-background-color: #d7dae0;");
         menu.getChildren().addAll(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10);
         menu.setPadding(new Insets(15, 12, 15, 12));
@@ -176,14 +95,15 @@ public class UserInterface extends Application {
         root.setTop(header);
         root.setLeft(menu);
 
-        startScene(primaryStage, root, scene);
+        startScene(root);
+        primaryStage.setScene(scene);
         primaryStage.setTitle("Literatur register");
         primaryStage.show();
 
         btn1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                autoFillScene(primaryStage, root, scene);
+                autoFillScene(root);
                 fillLiteratureList();
             }
         });
@@ -191,41 +111,151 @@ public class UserInterface extends Application {
         btn2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                listLiteratureScene(primaryStage, root, scene, register.getLiteraureIterator(), "Register is empty");
+                listLiteratureScene(root, register.getLiteraureIterator(), "Register is empty");
             }
         });
 
         btn3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addNewLiteratureScene(primaryStage, root, scene, menu, header);
+                addNewLiteratureScene(root);
             }
         });
         
         btn4.setOnAction(new EventHandler<ActionEvent>() {
             @Override
            public void handle(ActionEvent event) {
-                removeLiteratureScene(primaryStage,root,scene);
+                removeLiteratureScene(root);
            }
         });
           
         btn5.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            searchLiteratureScene(primaryStage,root,scene);
+            searchLiteratureScene(root);
+            }
+        });
+        
+        btn8.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                addToCartScene(root);
+            }
+        });
+        
+        btn9.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                removeFromCartScene(root);
             }
         });
 
         btn10.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                listLiteratureScene(primaryStage, root, scene, cart.getCartIterator(), "Cart is empty");
+                listLiteratureScene(root, cart.getCartIterator(), "Cart is empty");
             }
         });
 
     }
 
-    private void startScene(Stage primaryStage, BorderPane root, Scene scene) {
+    /**
+     * Fills the register with predefined literature.
+     */
+    private void fillLiteratureList() {
+        this.register.fillLiteratureRegister();
+    }
+    
+    /**
+     * Adds new book to register.
+     * 
+     * @param title - title of book
+     * @param publisher - publisher of book
+     * @param category - category of book
+     * @param language - language of book
+     * @param dateOfRelese - release date of book
+     * @param numberOfPages - number of pages of book
+     */
+    private void addBookToRegister(String title, String publisher, String category, String language, String dateOfRelese, int numberOfPages){
+        this.register.addLiterature(new Book(title, publisher, category, language, dateOfRelese, numberOfPages));
+    }
+
+    /**
+     * Adds new newspaper to the register.
+     * 
+     * @param title - title of newspaper
+     * @param publisher - publisher of newspaper
+     * @param category - category of newspaper
+     * @param language - language of newspaper
+     * @param dateOfRelease - release date of newspaper
+     * @param numberOfPages - number of pages of newspaper
+     * @param numberOfReleases - number of releases each yeaer of the newspaper
+     */
+    private void addNewspaperToRegister(String title, String publisher, String category, String language, String dateOfRelease, int numberOfPages, int numberOfReleases) {
+        this.register.addLiterature(new Newspaper(numberOfReleases, title, publisher, category, language, dateOfRelease, numberOfPages));
+    }
+
+    /**
+     * Adds new magazine to register.
+     * 
+     * @param title - title of magazine
+     * @param publisher - publisher of magazine
+     * @param category - category of megazine 
+     * @param language - language of megazine
+     * @param dateOfRelease - release date of megazine
+     * @param numberOfPages - number of pages of magazine
+     * @param numberOfReleases - number of releases each yeaer of the magazine
+     */
+    private void addMagazineToRegister(String title, String publisher, String category, String language, String dateOfRelease, int numberOfPages, int numberOfReleases) {
+        this.register.addLiterature(new Magazine(numberOfReleases, title, publisher, category, language, dateOfRelease, numberOfPages));
+    }
+    
+    /**
+     * Adds new booklet to register.
+     * 
+     * @param title - title of booklet
+     * @param publisher - publisher of booklet
+     * @param category - category of booklet
+     * @param language - language of booklet
+     * @param dateOfRelese - release date of booklet
+     * @param numberOfPages - number of pages of booklet
+     */
+    private void addBookletToRegister(String title, String publisher, String category, String language, String dateOfRelese, int numberOfPages) {
+        this.register.addLiterature(new Booklet(title, publisher, category, language, dateOfRelese, numberOfPages));
+    }
+
+    /**
+     * Changes a books series state to a new state.
+     * 
+     * @param state - the seriese state of the book
+     */
+    private void setSeriesState(boolean state) {
+        Scanner reader = new Scanner(System.in);
+        if (register.isEmpty()) {
+            System.out.println("Register is empty, therfore can't complete this action");
+        } else {
+            System.out.println("Enter the name of the book you want to change the series state of:");
+            String bookTitle = reader.nextLine();
+            Literature literature = register.getLiteratureByTitle(bookTitle);
+            if (literature != null) {
+                if (literature instanceof Book) {
+                    register.seLiteratureSeriesState(literature, state);
+                    System.out.println("State of: " + literature.getTitle() + ", has been set to: " + state);
+                } else {
+                    System.out.println("The literature you are trying to change series state of is not a book, please search for a book!");
+                }
+            } else {
+                System.out.println("Literature not found in register");
+            }
+        }
+    }
+    
+    /**
+     * Represents the start scene in the GUI.
+     * 
+     * @param primaryStage - primary stage of the scene
+     */
+    private void startScene(BorderPane root) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.CENTER);
@@ -239,24 +269,31 @@ public class UserInterface extends Application {
         textLbl2.setTextFill(Color.web("#0076a3"));
 
         mainSene.getChildren().addAll(textLbl2);
-        primaryStage.setScene(scene);
     }
     
-    private void autoFillScene(Stage primaryStage, BorderPane root, Scene scene) {
+    /**
+     * Displays successful register autto fill message.
+     * 
+     * @param root - the root of the stage
+     */
+    private void autoFillScene(BorderPane root) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.CENTER);
-
         root.setCenter(mainSene);
 
-        Label textLbl2 = new Label("Register has been filled with literature!");
-        textLbl2.setTextFill(Color.web("#2da331"));
+        Label successLabel = new Label("Register has been filled with literature!");
+        successLabel.setTextFill(Color.web("#2da331"));
 
-        mainSene.getChildren().addAll(textLbl2);
-        primaryStage.setScene(scene);
+        mainSene.getChildren().addAll(successLabel);
     }
-
-    private void addNewLiteratureScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+    
+    /**
+     * Displays add new literature scene.
+     * 
+     * @param root - the root of the stage
+     */
+    private void addNewLiteratureScene(BorderPane root) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.TOP_LEFT);
@@ -265,14 +302,18 @@ public class UserInterface extends Application {
 
         Label textLb = new Label("Choose a litterature type");
 
-        MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+        MenuButton menuButton = menuButton(root);
 
         mainSene.getChildren().addAll(textLb, menuButton);
-        primaryStage.setScene(scene);
-
     }
-
-    private MenuButton menuButton(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+    
+    /**
+     * Creates and returns a dropdown menu with some option.
+     * 
+     * @param root - the root of the stage
+     * @return - returns a menu
+     */
+    private MenuButton menuButton(BorderPane root) {
 
         MenuItem menuItem1 = new MenuItem("Book");
         MenuItem menuItem2 = new MenuItem("Newspaper");
@@ -284,39 +325,44 @@ public class UserInterface extends Application {
         menuItem1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addBookScene(primaryStage, root, scene, menu, header);
+                addBookScene(root);
             }
         });
         menuItem2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addNewspaperScene(primaryStage, root, scene, menu, header);
+                addNewspaperScene(root);
             }
         });
         menuItem3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addMagazineScene(primaryStage, root, scene, menu, header);
+                addMagazineScene(root);
             }
         });
         menuItem4.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addBookletScene(primaryStage, root, scene, menu, header);
+                addBookletScene(root);
             }
         });
 
         return menuButton;
     }
-
-    private void addNewspaperScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+    
+    /**
+     * Creates/Displays add newspapers scene.
+     * 
+     * @param root - the root of the stage
+     */
+    private void addNewspaperScene(BorderPane root) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.TOP_LEFT);
 
         root.setCenter(mainSene);
 
-        MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+        MenuButton menuButton = menuButton(root);
 
         Label textLb1 = new Label("Title: ");
         TextField titleField = new TextField();
@@ -339,31 +385,48 @@ public class UserInterface extends Application {
         Label textLb7 = new Label("Number of realeses: ");
         TextField norField = new TextField();
 
-        Label textLb8 = new Label("New newspaper is added");
-        textLb8.setTextFill(Color.web("#2da331"));
-
         Button btn = new Button("Add");
 
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addNewspaperToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()), Integer.parseInt(norField.getText().trim()));
-                mainSene.getChildren().add(textLb8);
+                if(!nopField.getText().trim().equals("") && !norField.getText().trim().equals("") && !titleField.getText().trim().equals("") && !pubField.getText().trim().equals("")){
+                    try{
+                        addNewspaperToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()), Integer.parseInt(norField.getText().trim()));
+                        Label successMessage = new Label("New newspaper is added");
+                        successMessage.setTextFill(Color.web("#2da331"));
+                        mainSene.getChildren().add(successMessage);
+                    }
+                    catch(Exception e){
+                        Label error = new Label("Number of pages and number of releases must be integers!");
+                        error.setTextFill(Color.web("#ff0000"));
+                        mainSene.getChildren().add(error);
+                    }
+                }
+                else{
+                    Label requiredFileds = new Label("Title, publisher, number of pages and number of releases are required!");
+                    requiredFileds.setTextFill(Color.web("#ff0000"));
+                    mainSene.getChildren().add(requiredFileds);
+                }
             }
         });
 
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, textLb7, norField, btn);
-        primaryStage.setScene(scene);
     }
 
-    private void addMagazineScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+    /**
+     * Creates/Displays add new megazine scene.
+     * 
+     * @param root - the root of the stage
+     */
+    private void addMagazineScene(BorderPane root) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.TOP_LEFT);
 
         root.setCenter(mainSene);
 
-        MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+        MenuButton menuButton = menuButton(root);
 
         Label textLb1 = new Label("Title: ");
         TextField titleField = new TextField();
@@ -386,31 +449,48 @@ public class UserInterface extends Application {
         Label textLb7 = new Label("Number of realeses: ");
         TextField norField = new TextField();
 
-        Label textLb8 = new Label("New magazine is added");
-        textLb8.setTextFill(Color.web("#2da331"));
-
         Button btn = new Button("Add");
 
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addMagazineToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()), Integer.parseInt(norField.getText().trim()));
-                mainSene.getChildren().add(textLb8);
+                if(!nopField.getText().trim().equals("") && !norField.getText().trim().equals("") && !titleField.getText().trim().equals("") && !pubField.getText().trim().equals("")){
+                    try{
+                        addMagazineToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()), Integer.parseInt(norField.getText().trim()));
+                        Label successMessage = new Label("New magazine is added");
+                        successMessage.setTextFill(Color.web("#2da331"));
+                        mainSene.getChildren().add(successMessage);
+                    }
+                    catch(Exception e){
+                        Label error = new Label("Number of pages and number of releases must be integers!");
+                        error.setTextFill(Color.web("#ff0000"));
+                        mainSene.getChildren().add(error);
+                    }
+                }
+                else{
+                    Label requiredFileds = new Label("Title, publisher, number of pages and number of releases are required!");
+                    requiredFileds.setTextFill(Color.web("#ff0000"));
+                    mainSene.getChildren().add(requiredFileds);
+                }
             }
         });
 
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, textLb7, norField, btn);
-        primaryStage.setScene(scene);
     }
 
-    private void addBookletScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+    /**
+     * Creates/Displays add new booklet scene.
+     * 
+     * @param root - the root of the stage
+     */
+    private void addBookletScene(BorderPane root) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.TOP_LEFT);
 
         root.setCenter(mainSene);
 
-        MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+        MenuButton menuButton = menuButton(root);
 
         Label textLb1 = new Label("Title: ");
         TextField titleField = new TextField();
@@ -430,31 +510,48 @@ public class UserInterface extends Application {
         Label textLb6 = new Label("Number of pages: ");
         TextField nopField = new TextField();
 
-        Label textLb8 = new Label("New booklet is added");
-        textLb8.setTextFill(Color.web("#2da331"));
-
         Button btn = new Button("Add");
 
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addBookletToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()));
-                mainSene.getChildren().add(textLb8);
+                if(!nopField.getText().trim().equals("") && !titleField.getText().trim().equals("") && !pubField.getText().trim().equals("")){
+                    try{
+                        addBookletToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()));
+                        Label successMessage = new Label("New booklet is added");
+                        successMessage.setTextFill(Color.web("#2da331"));
+                        mainSene.getChildren().add(successMessage);
+                    }
+                    catch(Exception e){
+                        Label error = new Label("Number of pages must be an integer!");
+                        error.setTextFill(Color.web("#ff0000"));
+                        mainSene.getChildren().add(error);
+                    }
+                }
+                else{
+                    Label requiredFileds = new Label("Title, publisher and number of pages are required!");
+                    requiredFileds.setTextFill(Color.web("#ff0000"));
+                    mainSene.getChildren().add(requiredFileds);
+                }
             }
         });
 
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, btn);
-        primaryStage.setScene(scene);
     }
-
-    private void addBookScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+    
+    /**
+     * Creates/Displays add new book scene.
+     * 
+     * @param root - the root of the stage
+     */
+    private void addBookScene(BorderPane root) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.TOP_LEFT);
 
         root.setCenter(mainSene);
 
-        MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+        MenuButton menuButton = menuButton(root);
 
         Label textLb1 = new Label("Title: ");
         TextField titleField = new TextField();
@@ -501,18 +598,16 @@ public class UserInterface extends Application {
         });
 
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, btn);
-        primaryStage.setScene(scene);
     }
 
     /**
-     * Prints all avalible literature in the given iterator.
-     *
-     * @param iterator the iterator (that returns/holds a collection) to go
-     * through and print.
-     * @param emptyCollectionMessage the message to print when there is nothing
-     * to print
+     * Creates list literatur scene and lists all literature in that scene.
+     * 
+     * @param root - the root of the stage
+     * @param iterator - the iterator to go through and print literature from
+     * @param emptyCollectionMessage - message to print if collition is empty
      */
-    private void listLiteratureScene(Stage primaryStage, BorderPane root, Scene scene, Iterator iterator, String emptyCollectionMessage) {
+    private void listLiteratureScene(BorderPane root, Iterator iterator, String emptyCollectionMessage) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.CENTER);
@@ -520,7 +615,6 @@ public class UserInterface extends Application {
 
         Iterator<Literature> it = iterator;
         if (!it.hasNext()) {
-            System.out.println(emptyCollectionMessage);
             Label erroMessage = new Label(emptyCollectionMessage);
             erroMessage.setTextFill(Color.web("#ff0000"));
             mainSene.getChildren().add(erroMessage);
@@ -538,7 +632,7 @@ public class UserInterface extends Application {
                     literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n"
                             + "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n"
                             + "Date of release: " + b.getDateOfRelease() + "\n"
-                            + "Number of pages: " + b.getNumberOfPages() + "\n" + "\n\n";
+                            + "Number of pages: " + b.getNumberOfPages() + "\n\n";
                 } else if (literature instanceof Magazine) {
                     Magazine b = (Magazine) literature;
                     literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n"
@@ -564,10 +658,39 @@ public class UserInterface extends Application {
             t1.setText(literatureToPrint);
             mainSene.getChildren().add(t1);
         }
-        primaryStage.setScene(scene);
     }
     
-    private void removeLiteratureScene(Stage primaryStage, BorderPane root, Scene scene){
+    /**
+     * Removes literature with given tittle from register.
+     */
+    private void removeLiteratureByTitle(String literatureTitle, VBox mainScene) {
+        Iterator<Literature> it = this.register.getLiteraureIterator();
+        String message = "";
+        String messageColor = "";
+        Label feedBack;
+        if (!it.hasNext()) {
+            message = "Register is empty! There are no literature to remove.";
+            messageColor = "#ff0000";
+        }
+        else {
+            
+            Literature literatureToRemove = register.getLiteratureByTitle(literatureTitle);
+            if (literatureToRemove != null) {
+                message = literatureToRemove.getTitle() + " Has been removed";
+                messageColor = "#2da331";
+                register.removeByTitleContains(literatureToRemove.getTitle());
+            } 
+            else {
+                message = "No literature with this title found to remove";
+                messageColor = "#ff0000";
+            }
+        }
+        feedBack = new Label(message);
+        feedBack.setTextFill(Color.web(messageColor));
+        mainScene.getChildren().addAll(feedBack);
+    }
+    
+    private void removeLiteratureScene(BorderPane root){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         root.setCenter(mainSene);
@@ -584,7 +707,6 @@ public class UserInterface extends Application {
                     removeLiteratureByTitle(literatureToRemove,mainSene);
                 }
                 else{
-                    System.out.println("Please enter a literature title in the field");
                     Label message = new Label("Please enter a literature title in the field");
                     message.setTextFill(Color.web("#ff0000"));
                     mainSene.getChildren().add(message);
@@ -592,67 +714,6 @@ public class UserInterface extends Application {
             }
         });
         mainSene.getChildren().addAll(textLbl2,textField,search);
-        primaryStage.setScene(scene);
-    }
-
-    /**
-     * Removes literature with given tittle from register.
-     */
-    private void removeLiteratureByTitle(String literatureTitle, VBox mainScene) {
-        Iterator<Literature> it = this.register.getLiteraureIterator();
-        String message = "";
-        String messageColor = "";
-        Label feedBack;
-        if (!it.hasNext()) {
-            System.out.println("Register is empty! There are no literature to remove.");
-            message = "Register is empty! There are no literature to remove.";
-            messageColor = "#ff0000";
-        }
-        else {
-            System.out.println("Insert the title of the literature to remove:");
-            
-            Literature literatureToRemove = register.getLiteratureByTitle(literatureTitle);
-            if (literatureToRemove != null) {
-                System.out.println(literatureToRemove.getTitle() + " Has been removed");
-                message = literatureToRemove.getTitle() + " Has been removed";
-                messageColor = "#2da331";
-                register.removeByTitleContains(literatureToRemove.getTitle());
-            } 
-            else {
-                System.out.println("No literature with this title found to remove");
-                message = "No literature with this title found to remove";
-                messageColor = "#ff0000";
-            }
-        }
-        feedBack = new Label(message);
-        feedBack.setTextFill(Color.web(messageColor));
-        mainScene.getChildren().addAll(feedBack);
-    }
-    
-    
-     private void searchLiteratureScene(Stage primaryStage, BorderPane root, Scene scene){
-        VBox mainSene = new VBox(8);
-        mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
-        root.setCenter(mainSene);
-        
-        Label sceneTitle = new Label("Search");
-        Label title = new Label("Literature title:");
-        TextField titleField = new TextField();
-        Label publisher = new Label("Literature putblisher:");
-        TextField publisherField = new TextField();
-        Button searchButton = new Button("Search");
-        
-        searchButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String searchResults = searchRegister(titleField.getText(), publisherField.getText());
-                Label searchResultsMessage = new Label(searchResults);
-                mainSene.getChildren().add(searchResultsMessage);
-            }
-        });
-        
-        mainSene.getChildren().addAll(sceneTitle,title,titleField,publisher,publisherField,searchButton);
-        primaryStage.setScene(scene);
     }
     
     /**
@@ -681,5 +742,134 @@ public class UserInterface extends Application {
             }
         }
         return searchMessage;
+    }
+    
+    private void searchLiteratureScene(BorderPane root){
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
+        root.setCenter(mainSene);
+        
+        Label sceneTitle = new Label("Search");
+        Label title = new Label("Literature title:");
+        TextField titleField = new TextField();
+        Label publisher = new Label("Literature putblisher:");
+        TextField publisherField = new TextField();
+        Button searchButton = new Button("Search");
+        
+        searchButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String searchResults = searchRegister(titleField.getText(), publisherField.getText());
+                Label searchResultsMessage = new Label(searchResults);
+                mainSene.getChildren().add(searchResultsMessage);
+            }
+        });
+        
+        mainSene.getChildren().addAll(sceneTitle,title,titleField,publisher,publisherField,searchButton);
+    }
+    
+    /**
+     * Adds literature with given title to cart, and returns a message indicating
+     * whether the adding prosess was successfull or not.
+     */
+    private String addLiteratureToCart(String literatureTitle) {
+        Iterator<Literature> it = this.register.getLiteraureIterator();
+        String message = "";
+        
+        if (!it.hasNext()) {
+            message = "You cant add any literature to cart because register is empty!";
+        } 
+        else if(literatureTitle.trim().equals("")){
+            message = "Please fill the field!";
+        }
+        else {
+            Literature literatureToAdd = register.getLiteratureByTitle(literatureTitle.trim());
+            if (literatureToAdd != null) {
+                message = literatureToAdd.getTitle() + " Has been added to cart";
+                cart.addToCart(literatureToAdd);
+            } 
+            else {
+                message = "No literature with this title found!";
+            }
+        }
+        return message;
+    }
+    
+    private void addToCartScene(BorderPane root){
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12));
+        root.setCenter(mainSene);
+        
+        Label fieldLabel = new Label("Enter the title of the literature to add to cart:");
+        TextField textField = new TextField();
+        
+        Button search = new Button("Add to cart");
+        search.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String literatureToAdd = textField.getText().trim();
+                Label message = new Label(addLiteratureToCart(literatureToAdd));
+                mainSene.getChildren().add(message);
+            }
+        });
+        mainSene.getChildren().addAll(fieldLabel,textField,search);
+    }
+    
+    /**
+     * Removes literature with given tittle from cart.
+     * 
+     * @param literatureTitle title o literature to remove.
+     * @param mainScene the vbox to add label messages to.
+     */
+    private void removeLiteratureFromCart(String literatureTitle, VBox mainScene) {
+        Iterator<Literature> it = this.cart.getCartIterator();
+        String message = "";
+        String messageColor = "";
+        Label feedBack;
+        if (!it.hasNext()) {
+            message = "cart is empty! There are no literature to remove.";
+            messageColor = "#ff0000";
+        }
+        else {            
+            Literature literatureToRemove = cart.getLiteratureByTitle(literatureTitle);
+            if (literatureToRemove != null) {
+                message = literatureToRemove.getTitle() + " Has been removed";
+                messageColor = "#2da331";
+                cart.removeFromCart(literatureToRemove);
+            } 
+            else {
+                message = "No literature with this title found to remove";
+                messageColor = "#ff0000";
+            }
+        }
+        feedBack = new Label(message);
+        feedBack.setTextFill(Color.web(messageColor));
+        mainScene.getChildren().addAll(feedBack);
+    }
+    
+    private void removeFromCartScene(BorderPane root){
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12));
+        root.setCenter(mainSene);
+        
+        Label textLbl2 = new Label("Enter the title of the literature to remove from cart:");
+        TextField textField = new TextField();
+        
+        Button search = new Button("Remove from cart");
+        search.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String literatureToRemove = textField.getText().trim();
+                if(!literatureToRemove.equals("")){
+                    removeLiteratureFromCart(literatureToRemove,mainSene);
+                }
+                else{
+                    Label message = new Label("Please enter a literature title in the field");
+                    message.setTextFill(Color.web("#ff0000"));
+                    mainSene.getChildren().add(message);
+                }
+            }
+        });
+        mainSene.getChildren().addAll(textLbl2,textField,search);
     }
 }

@@ -44,4 +44,23 @@ public class Cart {
     public Iterator<Literature> getCartIterator(){
        return this.cart.iterator();
     }
+    
+    /**
+     * Searches and returns literature in cart that contain 
+     * a given string in the title.
+     *
+     * @param title - the title of the literature to find from the register
+     * @return return the found literature that contains the given string
+     */
+    public Literature getLiteratureByTitle(String title) {
+        Literature foundLiterature = null;
+        int index = 0;
+        while ((null == foundLiterature) && (index < this.cart.size())) {
+            Literature p = this.cart.get(index++);
+            if (p.getTitle().toLowerCase().contains(title)) {
+                foundLiterature = p;
+            }
+        }
+        return foundLiterature;
+    }
 }
