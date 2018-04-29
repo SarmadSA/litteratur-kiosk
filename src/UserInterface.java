@@ -117,7 +117,7 @@ public class UserInterface extends Application {
         btn3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addNewLiteratureScene(primaryStage, root, scene, menu, header);
+                addNewLiteratureScene(primaryStage, root, scene);
             }
         });
         
@@ -224,7 +224,9 @@ public class UserInterface extends Application {
     }
 
     /**
-     * changes a books series state.
+     * Changes a books series state to a new state.
+     * 
+     * @param state - the seriese state of the book
      */
     private void setSeriesState(boolean state) {
         Scanner reader = new Scanner(System.in);
@@ -246,7 +248,14 @@ public class UserInterface extends Application {
             }
         }
     }
-
+    
+    /**
+     * Represents the statrt scene in the GUI.
+     * 
+     * @param primaryStage - primary stage of the scene
+     * @param root - the roote of the stage
+     * @param scene - the start scene
+     */
     private void startScene(Stage primaryStage, BorderPane root, Scene scene) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
@@ -264,6 +273,13 @@ public class UserInterface extends Application {
         primaryStage.setScene(scene);
     }
     
+    /**
+     * Displays successful register autto fill message.
+     * 
+     * @param primaryStage - primary stage
+     * @param root - the root of the stage
+     * @param scene - scene 
+     */
     private void autoFillScene(Stage primaryStage, BorderPane root, Scene scene) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
@@ -277,8 +293,17 @@ public class UserInterface extends Application {
         mainSene.getChildren().addAll(textLbl2);
         primaryStage.setScene(scene);
     }
-
-    private void addNewLiteratureScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+    
+    /**
+     * Displays add new literature sscene.
+     * 
+     * @param primaryStage
+     * @param root
+     * @param scene
+     * @param menu
+     * @param header 
+     */
+    private void addNewLiteratureScene(Stage primaryStage, BorderPane root, Scene scene) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.TOP_LEFT);
@@ -287,14 +312,14 @@ public class UserInterface extends Application {
 
         Label textLb = new Label("Choose a litterature type");
 
-        MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+        MenuButton menuButton = menuButton(primaryStage, root, scene);
 
         mainSene.getChildren().addAll(textLb, menuButton);
         primaryStage.setScene(scene);
 
     }
 
-    private MenuButton menuButton(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+    private MenuButton menuButton(Stage primaryStage, BorderPane root, Scene scene) {
 
         MenuItem menuItem1 = new MenuItem("Book");
         MenuItem menuItem2 = new MenuItem("Newspaper");
@@ -306,39 +331,39 @@ public class UserInterface extends Application {
         menuItem1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addBookScene(primaryStage, root, scene, menu, header);
+                addBookScene(primaryStage, root, scene);
             }
         });
         menuItem2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addNewspaperScene(primaryStage, root, scene, menu, header);
+                addNewspaperScene(primaryStage, root, scene);
             }
         });
         menuItem3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addMagazineScene(primaryStage, root, scene, menu, header);
+                addMagazineScene(primaryStage, root, scene);
             }
         });
         menuItem4.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addBookletScene(primaryStage, root, scene, menu, header);
+                addBookletScene(primaryStage, root, scene);
             }
         });
 
         return menuButton;
     }
 
-    private void addNewspaperScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+    private void addNewspaperScene(Stage primaryStage, BorderPane root, Scene scene) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.TOP_LEFT);
 
         root.setCenter(mainSene);
 
-        MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+        MenuButton menuButton = menuButton(primaryStage, root, scene);
 
         Label textLb1 = new Label("Title: ");
         TextField titleField = new TextField();
@@ -391,14 +416,14 @@ public class UserInterface extends Application {
         primaryStage.setScene(scene);
     }
 
-    private void addMagazineScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+    private void addMagazineScene(Stage primaryStage, BorderPane root, Scene scene) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.TOP_LEFT);
 
         root.setCenter(mainSene);
 
-        MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+        MenuButton menuButton = menuButton(primaryStage, root, scene);
 
         Label textLb1 = new Label("Title: ");
         TextField titleField = new TextField();
@@ -451,14 +476,14 @@ public class UserInterface extends Application {
         primaryStage.setScene(scene);
     }
 
-    private void addBookletScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+    private void addBookletScene(Stage primaryStage, BorderPane root, Scene scene) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.TOP_LEFT);
 
         root.setCenter(mainSene);
 
-        MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+        MenuButton menuButton = menuButton(primaryStage, root, scene);
 
         Label textLb1 = new Label("Title: ");
         TextField titleField = new TextField();
@@ -508,14 +533,14 @@ public class UserInterface extends Application {
         primaryStage.setScene(scene);
     }
 
-    private void addBookScene(Stage primaryStage, BorderPane root, Scene scene, VBox menu, HBox header) {
+    private void addBookScene(Stage primaryStage, BorderPane root, Scene scene) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.TOP_LEFT);
 
         root.setCenter(mainSene);
 
-        MenuButton menuButton = menuButton(primaryStage, root, scene, menu, header);
+        MenuButton menuButton = menuButton(primaryStage, root, scene);
 
         Label textLb1 = new Label("Title: ");
         TextField titleField = new TextField();
