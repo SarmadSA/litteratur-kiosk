@@ -601,11 +601,11 @@ public class UserInterface extends Application {
     }
 
     /**
-     * Creates lits literatur scene and lists all literature in 
+     * Creates list literatur scene and lists all literature in that scene.
      * 
-     * @param root
-     * @param iterator
-     * @param emptyCollectionMessage 
+     * @param root - the root of the stage
+     * @param iterator - the iterator to go through and print literature from
+     * @param emptyCollectionMessage - message to print if collition is empty
      */
     private void listLiteratureScene(BorderPane root, Iterator iterator, String emptyCollectionMessage) {
         VBox mainSene = new VBox(8);
