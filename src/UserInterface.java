@@ -415,16 +415,29 @@ public class UserInterface extends Application {
         Label textLb7 = new Label("Number of realeses: ");
         TextField norField = new TextField();
 
-        Label textLb8 = new Label("New magazine is added");
-        textLb8.setTextFill(Color.web("#2da331"));
-
         Button btn = new Button("Add");
 
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addMagazineToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()), Integer.parseInt(norField.getText().trim()));
-                mainSene.getChildren().add(textLb8);
+                if(!nopField.getText().trim().equals("") && !norField.getText().trim().equals("") && !titleField.getText().trim().equals("") && !pubField.getText().trim().equals("")){
+                    try{
+                        addMagazineToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()), Integer.parseInt(norField.getText().trim()));
+                        Label successMessage = new Label("New magazine is added");
+                        successMessage.setTextFill(Color.web("#2da331"));
+                        mainSene.getChildren().add(successMessage);
+                    }
+                    catch(Exception e){
+                        Label error = new Label("Number of pages and number of releases must be integers!");
+                        error.setTextFill(Color.web("#ff0000"));
+                        mainSene.getChildren().add(error);
+                    }
+                }
+                else{
+                    Label requiredFileds = new Label("Title, publisher, number of pages and number of releases are required!");
+                    requiredFileds.setTextFill(Color.web("#ff0000"));
+                    mainSene.getChildren().add(requiredFileds);
+                }
             }
         });
 
