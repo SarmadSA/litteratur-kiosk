@@ -46,7 +46,7 @@ public class Cart {
     }
     
     /**
-     * Searches and returns all literature in cart that contain 
+     * Searches and returns literature in cart that contain 
      * a given string in the title.
      *
      * @param title - the title of the literature to find from the register

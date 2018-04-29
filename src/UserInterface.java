@@ -788,9 +788,12 @@ public class UserInterface extends Application {
         primaryStage.setScene(scene);
     }
     
-    /**
-     * Removes literature with given tittle from register.
-     */
+/**
+ * Removes literature with given tittle from cart.
+ * 
+ * @param literatureTitle title o literature to remove.
+ * @param mainScene the vbox to add label messages to.
+ */
     private void removeLiteratureFromCart(String literatureTitle, VBox mainScene) {
         Iterator<Literature> it = this.cart.getCartIterator();
         String message = "";
