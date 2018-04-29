@@ -254,8 +254,6 @@ public class UserInterface extends Application {
      * Represents the start scene in the GUI.
      * 
      * @param primaryStage - primary stage of the scene
-     * @param root - the roote of the stage
-     * @param scene - the start scene
      */
     private void startScene(BorderPane root) {
         VBox mainSene = new VBox(8);
@@ -293,9 +291,7 @@ public class UserInterface extends Application {
     /**
      * Displays add new literature scene.
      * 
-     * @param primaryStage
-     * @param root
-     * @param scene
+     * @param root - the root of the stage
      */
     private void addNewLiteratureScene(BorderPane root) {
         VBox mainSene = new VBox(8);
@@ -310,7 +306,13 @@ public class UserInterface extends Application {
 
         mainSene.getChildren().addAll(textLb, menuButton);
     }
-
+    
+    /**
+     * Creates and returns a dropdown menu with some option.
+     * 
+     * @param root - the root of the stage
+     * @return - returns a menu
+     */
     private MenuButton menuButton(BorderPane root) {
 
         MenuItem menuItem1 = new MenuItem("Book");
@@ -347,7 +349,12 @@ public class UserInterface extends Application {
 
         return menuButton;
     }
-
+    
+    /**
+     * Creates/Displays add newspapers scene.
+     * 
+     * @param root - the root of the stage
+     */
     private void addNewspaperScene(BorderPane root) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
@@ -407,6 +414,11 @@ public class UserInterface extends Application {
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, textLb7, norField, btn);
     }
 
+    /**
+     * Creates/Displays add new megazine scene.
+     * 
+     * @param root - the root of the stage
+     */
     private void addMagazineScene(BorderPane root) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
@@ -466,6 +478,11 @@ public class UserInterface extends Application {
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, textLb7, norField, btn);
     }
 
+    /**
+     * Creates/Displays add new booklet scene.
+     * 
+     * @param root - the root of the stage
+     */
     private void addBookletScene(BorderPane root) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
@@ -521,7 +538,12 @@ public class UserInterface extends Application {
 
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, btn);
     }
-
+    
+    /**
+     * Creates/Displays add new book scene.
+     * 
+     * @param root - the root of the stage
+     */
     private void addBookScene(BorderPane root) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
@@ -579,12 +601,11 @@ public class UserInterface extends Application {
     }
 
     /**
-     * Prints all avalible literature in the given iterator.
-     *
-     * @param iterator the iterator (that returns/holds a collection) to go
-     * through and print.
-     * @param emptyCollectionMessage the message to print when there is nothing
-     * to print
+     * Creates lits literatur scene and lists all literature in 
+     * 
+     * @param root
+     * @param iterator
+     * @param emptyCollectionMessage 
      */
     private void listLiteratureScene(BorderPane root, Iterator iterator, String emptyCollectionMessage) {
         VBox mainSene = new VBox(8);
