@@ -446,16 +446,29 @@ public class UserInterface extends Application {
         Label textLb6 = new Label("Number of pages: ");
         TextField nopField = new TextField();
 
-        Label textLb8 = new Label("New booklet is added");
-        textLb8.setTextFill(Color.web("#2da331"));
-
         Button btn = new Button("Add");
 
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addBookletToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()));
-                mainSene.getChildren().add(textLb8);
+                if(!nopField.getText().trim().equals("") && !titleField.getText().trim().equals("") && !pubField.getText().trim().equals("")){
+                    try{
+                        addBookletToRegister(titleField.getText().trim(), pubField.getText().trim(), catField.getText().trim(), lanField.getText().trim(), dorField.getText().trim(), Integer.parseInt(nopField.getText().trim()));
+                        Label successMessage = new Label("New booklet is added");
+                        successMessage.setTextFill(Color.web("#2da331"));
+                        mainSene.getChildren().add(successMessage);
+                    }
+                    catch(Exception e){
+                        Label error = new Label("Number of pages must be an integer!");
+                        error.setTextFill(Color.web("#ff0000"));
+                        mainSene.getChildren().add(error);
+                    }
+                }
+                else{
+                    Label requiredFileds = new Label("Title, publisher and number of pages are required!");
+                    requiredFileds.setTextFill(Color.web("#ff0000"));
+                    mainSene.getChildren().add(requiredFileds);
+                }
             }
         });
 
