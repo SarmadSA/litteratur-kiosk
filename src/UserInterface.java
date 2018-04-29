@@ -806,7 +806,7 @@ public class UserInterface extends Application {
                 System.out.println(literatureToRemove.getTitle() + " Has been removed");
                 message = literatureToRemove.getTitle() + " Has been removed";
                 messageColor = "#2da331";
-                cart.removeFromCart(literatureToRemove.getTitle());
+                cart.removeFromCart(literatureToRemove);
             } 
             else {
                 message = "No literature with this title found to remove";
