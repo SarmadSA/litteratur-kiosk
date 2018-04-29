@@ -95,7 +95,8 @@ public class UserInterface extends Application {
         root.setTop(header);
         root.setLeft(menu);
 
-        startScene(primaryStage, root, scene);
+        startScene(root);
+        primaryStage.setScene(scene);
         primaryStage.setTitle("Literatur register");
         primaryStage.show();
 
@@ -110,7 +111,7 @@ public class UserInterface extends Application {
         btn2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                listLiteratureScene(primaryStage, root, scene, register.getLiteraureIterator(), "Register is empty");
+                listLiteratureScene(root, register.getLiteraureIterator(), "Register is empty");
             }
         });
 
@@ -124,35 +125,35 @@ public class UserInterface extends Application {
         btn4.setOnAction(new EventHandler<ActionEvent>() {
             @Override
            public void handle(ActionEvent event) {
-                removeLiteratureScene(primaryStage,root,scene);
+                removeLiteratureScene(root);
            }
         });
           
         btn5.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            searchLiteratureScene(primaryStage,root,scene);
+            searchLiteratureScene(root);
             }
         });
         
         btn8.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addToCartScene(primaryStage,root, scene);
+                addToCartScene(root);
             }
         });
         
         btn9.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                removeFromCartScene(primaryStage, root, scene);
+                removeFromCartScene(root);
             }
         });
 
         btn10.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                listLiteratureScene(primaryStage, root, scene, cart.getCartIterator(), "Cart is empty");
+                listLiteratureScene(root, cart.getCartIterator(), "Cart is empty");
             }
         });
 
@@ -256,7 +257,7 @@ public class UserInterface extends Application {
      * @param root - the roote of the stage
      * @param scene - the start scene
      */
-    private void startScene(Stage primaryStage, BorderPane root, Scene scene) {
+    private void startScene(BorderPane root) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.CENTER);
@@ -270,7 +271,6 @@ public class UserInterface extends Application {
         textLbl2.setTextFill(Color.web("#0076a3"));
 
         mainSene.getChildren().addAll(textLbl2);
-        primaryStage.setScene(scene);
     }
     
     /**
@@ -586,7 +586,7 @@ public class UserInterface extends Application {
      * @param emptyCollectionMessage the message to print when there is nothing
      * to print
      */
-    private void listLiteratureScene(Stage primaryStage, BorderPane root, Scene scene, Iterator iterator, String emptyCollectionMessage) {
+    private void listLiteratureScene(BorderPane root, Iterator iterator, String emptyCollectionMessage) {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.CENTER);
@@ -637,7 +637,6 @@ public class UserInterface extends Application {
             t1.setText(literatureToPrint);
             mainSene.getChildren().add(t1);
         }
-        primaryStage.setScene(scene);
     }
     
     /**
@@ -670,7 +669,7 @@ public class UserInterface extends Application {
         mainScene.getChildren().addAll(feedBack);
     }
     
-    private void removeLiteratureScene(Stage primaryStage, BorderPane root, Scene scene){
+    private void removeLiteratureScene(BorderPane root){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         root.setCenter(mainSene);
@@ -694,7 +693,6 @@ public class UserInterface extends Application {
             }
         });
         mainSene.getChildren().addAll(textLbl2,textField,search);
-        primaryStage.setScene(scene);
     }
     
     /**
@@ -725,7 +723,7 @@ public class UserInterface extends Application {
         return searchMessage;
     }
     
-    private void searchLiteratureScene(Stage primaryStage, BorderPane root, Scene scene){
+    private void searchLiteratureScene(BorderPane root){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
         root.setCenter(mainSene);
@@ -747,7 +745,6 @@ public class UserInterface extends Application {
         });
         
         mainSene.getChildren().addAll(sceneTitle,title,titleField,publisher,publisherField,searchButton);
-        primaryStage.setScene(scene);
     }
     
     /**
@@ -777,7 +774,7 @@ public class UserInterface extends Application {
         return message;
     }
     
-    private void addToCartScene(Stage primaryStage, BorderPane root, Scene scene){
+    private void addToCartScene(BorderPane root){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         root.setCenter(mainSene);
@@ -795,7 +792,6 @@ public class UserInterface extends Application {
             }
         });
         mainSene.getChildren().addAll(fieldLabel,textField,search);
-        primaryStage.setScene(scene);
     }
     
     /**
@@ -830,7 +826,7 @@ public class UserInterface extends Application {
         mainScene.getChildren().addAll(feedBack);
     }
     
-    private void removeFromCartScene(Stage primaryStage, BorderPane root, Scene scene){
+    private void removeFromCartScene(BorderPane root){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         root.setCenter(mainSene);
@@ -854,6 +850,5 @@ public class UserInterface extends Application {
             }
         });
         mainSene.getChildren().addAll(textLbl2,textField,search);
-        primaryStage.setScene(scene);
     }
 }
