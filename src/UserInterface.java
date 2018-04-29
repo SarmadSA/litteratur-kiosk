@@ -20,11 +20,11 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- * Represents user graphical interface that is responsible for
+ * Represents graphical user interface that is responsible for
  * communication with the user.
  *
  * @author Sarmad, Nikita and Kristin
- * @version 2018.04.14
+ * @version 2018.04.30
  */
 public class UserInterface extends Application {
 
@@ -40,7 +40,8 @@ public class UserInterface extends Application {
     }
     
     /**
-     * Start the application, and careates the start scene.
+     * Start the application, and careates the start scene
+     * that includes the selection menu and the header.
      * 
      * @param primaryStage the primary stage.
      */
@@ -67,7 +68,6 @@ public class UserInterface extends Application {
         Button btn9 = new Button("Remove from cart");
         Button btn10 = new Button("View cart");
 
-        //vbox.setPrefWidth(200);
         btn1.setMinWidth(buttonWidth);
         btn2.setMinWidth(buttonWidth);
         btn3.setMinWidth(buttonWidth);
@@ -87,7 +87,7 @@ public class UserInterface extends Application {
         header.setPadding(new Insets(20, 12, 20, 12)); //top, bottom, right, left
         header.setAlignment(Pos.CENTER);
 
-        //selection menu
+        //selection menu (menu to the left)
         menu.setStyle("-fx-background-color: #d7dae0;");
         menu.getChildren().addAll(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10);
         menu.setPadding(new Insets(15, 12, 15, 12));
@@ -167,13 +167,28 @@ public class UserInterface extends Application {
     
     /**
      * Adds new book to register.
+     * 
+     * @param title - title of book
+     * @param publisher - publisher of book
+     * @param category - category of book
+     * @param language - language of book
+     * @param dateOfRelese - release date of book
+     * @param numberOfPages - number of pages of book
      */
     private void addBookToRegister(String title, String publisher, String category, String language, String dateOfRelese, int numberOfPages){
         this.register.addLiterature(new Book(title, publisher, category, language, dateOfRelese, numberOfPages));
     }
 
     /**
-     * Add new newspaper to the register.
+     * Adds new newspaper to the register.
+     * 
+     * @param title - title of newspaper
+     * @param publisher - publisher of newspaper
+     * @param category - category of newspaper
+     * @param language - language of newspaper
+     * @param dateOfRelease - release date of newspaper
+     * @param numberOfPages - number of pages of newspaper
+     * @param numberOfReleases - number of releases each yeaer of the newspaper
      */
     private void addNewspaperToRegister(String title, String publisher, String category, String language, String dateOfRelease, int numberOfPages, int numberOfReleases) {
         this.register.addLiterature(new Newspaper(numberOfReleases, title, publisher, category, language, dateOfRelease, numberOfPages));
@@ -181,13 +196,28 @@ public class UserInterface extends Application {
 
     /**
      * Adds new magazine to register.
+     * 
+     * @param title - title of magazine
+     * @param publisher - publisher of magazine
+     * @param category - category of megazine 
+     * @param language - language of megazine
+     * @param dateOfRelease - release date of megazine
+     * @param numberOfPages - number of pages of magazine
+     * @param numberOfReleases - number of releases each yeaer of the magazine
      */
     private void addMagazineToRegister(String title, String publisher, String category, String language, String dateOfRelease, int numberOfPages, int numberOfReleases) {
         this.register.addLiterature(new Magazine(numberOfReleases, title, publisher, category, language, dateOfRelease, numberOfPages));
     }
-
+    
     /**
      * Adds new booklet to register.
+     * 
+     * @param title - title of booklet
+     * @param publisher - publisher of booklet
+     * @param category - category of booklet
+     * @param language - language of booklet
+     * @param dateOfRelese - release date of booklet
+     * @param numberOfPages - number of pages of booklet
      */
     private void addBookletToRegister(String title, String publisher, String category, String language, String dateOfRelese, int numberOfPages) {
         this.register.addLiterature(new Booklet(title, publisher, category, language, dateOfRelese, numberOfPages));
