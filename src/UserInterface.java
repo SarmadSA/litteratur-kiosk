@@ -132,7 +132,14 @@ public class UserInterface extends Application {
         btn5.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            searchLiteratureScene(root);
+                searchLiteratureScene(root);
+            }
+        });
+                  
+        btn6.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setSeriesScene(root);
             }
         });
         
