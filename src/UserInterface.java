@@ -905,4 +905,29 @@ public class UserInterface extends Application {
         });
         mainSene.getChildren().addAll(textLbl2,textField,search);
     }
+    
+    /**
+     * Creates set series state scene.
+     * 
+     * @param root - the root of the stage
+     */
+    private void setSeriesScene(BorderPane root){
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12));
+        root.setCenter(mainSene);
+        
+        Label fieldLabel = new Label("Enter the title of the book to set it to series:");
+        TextField textField = new TextField();
+        
+        Button search = new Button("Set series");
+        search.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String bookToSeries = textField.getText().trim();
+                Label message = new Label(setSeriesState(true, bookToSeries));
+                mainSene.getChildren().add(message);
+            }
+        });
+        mainSene.getChildren().addAll(fieldLabel,textField,search);
+    }
 }
