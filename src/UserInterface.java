@@ -651,7 +651,7 @@ public class UserInterface extends Application {
                     literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n"
                             + "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n"
                             + "Date of release: " + b.getDateOfRelease() + "\n"
-                            + "Number of pages: " + b.getNumberOfPages() + "\n\n";
+                            + "Number of pages: " + b.getNumberOfPages() + "\n" + "Series: " + b.isSeries() + "\n\n";
                 } else if (literature instanceof Magazine) {
                     Magazine b = (Magazine) literature;
                     literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n"
