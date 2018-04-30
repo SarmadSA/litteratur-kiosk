@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  * communication with the user.
  *
  * @author Sarmad, Nikita and Kristin
- * @version 2018.04.30
+ * @version 2018.05.01
  */
 public class UserInterface extends Application {
 
@@ -132,7 +132,21 @@ public class UserInterface extends Application {
         btn5.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            searchLiteratureScene(root);
+                searchLiteratureScene(root);
+            }
+        });
+                  
+        btn6.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setSeriesScene(root,true);
+            }
+        });
+        
+        btn7.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setSeriesScene(root,false);
             }
         });
         
@@ -227,27 +241,32 @@ public class UserInterface extends Application {
     /**
      * Changes a books series state to a new state.
      * 
-     * @param state - the seriese state of the book
+     * @param state - the seriese state to set the book to.
+     * @param bookTitle - the title of the book to set the series state of
+     * @return - return success/fail indication message
      */
-    private void setSeriesState(boolean state) {
-        Scanner reader = new Scanner(System.in);
+    private String setSeriesState(boolean state, String bookTitle) {
+        String message = "";
         if (register.isEmpty()) {
-            System.out.println("Register is empty, therfore can't complete this action");
-        } else {
-            System.out.println("Enter the name of the book you want to change the series state of:");
-            String bookTitle = reader.nextLine();
+            message = "Register is empty, therfore can't complete this action";
+        }
+        else if(bookTitle.equals("")){
+            message = "Please enter the tite of the book in the field";
+        }
+        else {
             Literature literature = register.getLiteratureByTitle(bookTitle);
             if (literature != null) {
                 if (literature instanceof Book) {
                     register.seLiteratureSeriesState(literature, state);
-                    System.out.println("State of: " + literature.getTitle() + ", has been set to: " + state);
+                    message = "State of: " + literature.getTitle() + ", has been set to: " + state;
                 } else {
-                    System.out.println("The literature you are trying to change series state of is not a book, please search for a book!");
+                    message = "The literature you are trying to change series state of is not a book, please search for a book!";
                 }
             } else {
-                System.out.println("Literature not found in register");
+                message = "Literature not found in register";
             }
         }
+        return message;
     }
     
     /**
@@ -605,7 +624,7 @@ public class UserInterface extends Application {
      * 
      * @param root - the root of the stage
      * @param iterator - the iterator to go through and print literature from
-     * @param emptyCollectionMessage - message to print if collition is empty
+     * @param emptyCollectionMessage - message to print if collection is empty
      */
     private void listLiteratureScene(BorderPane root, Iterator iterator, String emptyCollectionMessage) {
         VBox mainSene = new VBox(8);
@@ -632,7 +651,7 @@ public class UserInterface extends Application {
                     literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n"
                             + "Category: " + b.getCategory() + "\n" + "Language: " + b.getLanguage() + "\n"
                             + "Date of release: " + b.getDateOfRelease() + "\n"
-                            + "Number of pages: " + b.getNumberOfPages() + "\n\n";
+                            + "Number of pages: " + b.getNumberOfPages() + "\n" + "Series: " + b.isSeries() + "\n\n";
                 } else if (literature instanceof Magazine) {
                     Magazine b = (Magazine) literature;
                     literatureToPrint += "Title: " + b.getTitle() + "\n" + "Publisher: " + b.getPublisher() + "\n"
@@ -662,6 +681,9 @@ public class UserInterface extends Application {
     
     /**
      * Removes literature with given tittle from register.
+     * 
+     * @param literatureTitle - title of literature to remove
+     * @param mainScene - Vbox to remove literature from
      */
     private void removeLiteratureByTitle(String literatureTitle, VBox mainScene) {
         Iterator<Literature> it = this.register.getLiteraureIterator();
@@ -690,6 +712,11 @@ public class UserInterface extends Application {
         mainScene.getChildren().addAll(feedBack);
     }
     
+    /**
+     * Displays/Creates scene for remove liteerature.
+     * 
+     * @param root - the root of the stage
+     */
     private void removeLiteratureScene(BorderPane root){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
@@ -717,7 +744,12 @@ public class UserInterface extends Application {
     }
     
     /**
-     * Searches the register by title and publisher and prints found literature.
+     * Searches the register by title and publisher and returns a message 
+     * indicating whether or not  lierature was found.
+     * 
+     * @param searchTitle - title to search
+     * @param searchPublisher - publisher to search
+     * @return - return found/not-found message
      */
     private String searchRegister(String searchTitle, String searchPublisher){
         Iterator<Literature> it = this.register.getLiteraureIterator();
@@ -744,6 +776,11 @@ public class UserInterface extends Application {
         return searchMessage;
     }
     
+    /**
+     * Creates/Displays search literature scene.
+     * 
+     * @param root - the root of the stage
+     */
     private void searchLiteratureScene(BorderPane root){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
@@ -767,10 +804,13 @@ public class UserInterface extends Application {
         
         mainSene.getChildren().addAll(sceneTitle,title,titleField,publisher,publisherField,searchButton);
     }
-    
+
     /**
      * Adds literature with given title to cart, and returns a message indicating
      * whether the adding prosess was successfull or not.
+     * 
+     * @param literatureTitle - title of literature to add to cart
+     * @return - return adding success/fail message.
      */
     private String addLiteratureToCart(String literatureTitle) {
         Iterator<Literature> it = this.register.getLiteraureIterator();
@@ -795,6 +835,11 @@ public class UserInterface extends Application {
         return message;
     }
     
+    /**
+     * Creates add to cart secene.
+     * 
+     * @param root - the root of the stage
+     */
     private void addToCartScene(BorderPane root){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
@@ -847,6 +892,11 @@ public class UserInterface extends Application {
         mainScene.getChildren().addAll(feedBack);
     }
     
+    /**
+     * Creates remove from cart scene.
+     * 
+     * @param root - the root of the stage
+     */
     private void removeFromCartScene(BorderPane root){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
@@ -871,5 +921,41 @@ public class UserInterface extends Application {
             }
         });
         mainSene.getChildren().addAll(textLbl2,textField,search);
+    }
+    
+    /**
+     * Creates set series state scene.
+     * 
+     * @param root - the root of the stage
+     * @param state - the new series state to set the book to
+     */
+    private void setSeriesScene(BorderPane root, boolean state){
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12));
+        root.setCenter(mainSene);
+        String message = "";
+        String buttonText = "";
+        if(state){
+            message = "Enter the title of the book to set it to series:";
+            buttonText = "Set series";
+        }
+        else{
+            message = "Enter the title of the book to set it to not series:";
+            buttonText = "Unseries";
+        }
+        
+        Label fieldLabel = new Label(message);
+        TextField textField = new TextField();
+        
+        Button search = new Button(buttonText);
+        search.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String bookToSeries = textField.getText().trim();
+                Label message = new Label(setSeriesState(state, bookToSeries));
+                mainSene.getChildren().add(message);
+            }
+        });
+        mainSene.getChildren().addAll(fieldLabel,textField,search);
     }
 }
