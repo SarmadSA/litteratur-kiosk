@@ -5,12 +5,10 @@ import javafx.application.Application;
  * this class is responsible for starting the program.
  * 
  * @author Sarmad, Nikita og Kristin
- * @version 2018.04.13
+ * @version 2018.05.01
  */
 public class Main {
    public static void main(String[] args){
        Application.launch(UserInterface.class, args);
-//       UserInterface u1 = new UserInterface();
-//       u1.start();  
    }
 }

@@ -6,7 +6,7 @@ import java.util.Iterator;
  * that the user adds to his/her cart.
  * 
  * @author Sarmad, Nikita og Kristin
- * @version 2018.04.13
+ * @version 2018.05.01
  */
 public class Cart {
     ArrayList<Literature> cart;

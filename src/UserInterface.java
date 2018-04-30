@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  * communication with the user.
  *
  * @author Sarmad, Nikita and Kristin
- * @version 2018.04.30
+ * @version 2018.05.01
  */
 public class UserInterface extends Application {
 

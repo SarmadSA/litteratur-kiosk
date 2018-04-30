@@ -6,7 +6,7 @@ import java.util.Iterator;
  * the register stores all avalible literature.
  * 
  * @author Sarmad, Nikita and Kristin
- * @version 2018.04.14
+ * @version 2018.05.01
  */
 public class Register {
 
@@ -123,7 +123,7 @@ public class Register {
     }
     
     /**
-     * Returns ture if register is emptym false otherwise.
+     * Returns ture if register is empty false otherwise.
      * 
      * @return ture if regiser is empty, false otherwise
      */
