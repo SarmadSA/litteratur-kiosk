@@ -605,7 +605,7 @@ public class UserInterface extends Application {
      * 
      * @param root - the root of the stage
      * @param iterator - the iterator to go through and print literature from
-     * @param emptyCollectionMessage - message to print if collition is empty
+     * @param emptyCollectionMessage - message to print if collection is empty
      */
     private void listLiteratureScene(BorderPane root, Iterator iterator, String emptyCollectionMessage) {
         VBox mainSene = new VBox(8);
@@ -662,6 +662,9 @@ public class UserInterface extends Application {
     
     /**
      * Removes literature with given tittle from register.
+     * 
+     * @param literatureTitle - title of literature to remove
+     * @param mainScene - Vbox to remove literature from
      */
     private void removeLiteratureByTitle(String literatureTitle, VBox mainScene) {
         Iterator<Literature> it = this.register.getLiteraureIterator();
@@ -690,6 +693,11 @@ public class UserInterface extends Application {
         mainScene.getChildren().addAll(feedBack);
     }
     
+    /**
+     * Displays/Creates scene for remove liteerature.
+     * 
+     * @param root - the root of the stage
+     */
     private void removeLiteratureScene(BorderPane root){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
@@ -717,7 +725,12 @@ public class UserInterface extends Application {
     }
     
     /**
-     * Searches the register by title and publisher and prints found literature.
+     * Searches the register by title and publisher and returns a message 
+     * indicating whether or not  lierature was found.
+     * 
+     * @param searchTitle - title to search
+     * @param searchPublisher - publisher to search
+     * @return - return found/not-found message
      */
     private String searchRegister(String searchTitle, String searchPublisher){
         Iterator<Literature> it = this.register.getLiteraureIterator();
@@ -744,6 +757,11 @@ public class UserInterface extends Application {
         return searchMessage;
     }
     
+    /**
+     * Creates/Displays search literature scene.
+     * 
+     * @param root - the root of the stage
+     */
     private void searchLiteratureScene(BorderPane root){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
@@ -767,10 +785,13 @@ public class UserInterface extends Application {
         
         mainSene.getChildren().addAll(sceneTitle,title,titleField,publisher,publisherField,searchButton);
     }
-    
+
     /**
      * Adds literature with given title to cart, and returns a message indicating
      * whether the adding prosess was successfull or not.
+     * 
+     * @param literatureTitle - title of literature to add to cart
+     * @return - return adding success/fail message.
      */
     private String addLiteratureToCart(String literatureTitle) {
         Iterator<Literature> it = this.register.getLiteraureIterator();
@@ -795,6 +816,11 @@ public class UserInterface extends Application {
         return message;
     }
     
+    /**
+     * Creates add to cart secene.
+     * 
+     * @param root - the root of the stage
+     */
     private void addToCartScene(BorderPane root){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
@@ -847,6 +873,11 @@ public class UserInterface extends Application {
         mainScene.getChildren().addAll(feedBack);
     }
     
+    /**
+     * Creates remove from cart scene.
+     * 
+     * @param root - the root of the stage
+     */
     private void removeFromCartScene(BorderPane root){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
