@@ -143,6 +143,13 @@ public class UserInterface extends Application {
             }
         });
         
+        btn7.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setSeriesScene(root,false);
+            }
+        });
+        
         btn8.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
