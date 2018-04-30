@@ -227,27 +227,29 @@ public class UserInterface extends Application {
     /**
      * Changes a books series state to a new state.
      * 
-     * @param state - the seriese state of the book
+     * @param state - the seriese state to set the book to.
+     * @param bookTitle - the title of the book to set the series state of
+     * @return - return success/fail indication message
      */
-    private void setSeriesState(boolean state) {
-        Scanner reader = new Scanner(System.in);
+    private String setSeriesState(boolean state, String bookTitle) {
+        String message = "";
         if (register.isEmpty()) {
-            System.out.println("Register is empty, therfore can't complete this action");
+            message = "Register is empty, therfore can't complete this action";
         } else {
-            System.out.println("Enter the name of the book you want to change the series state of:");
-            String bookTitle = reader.nextLine();
+            message = "Enter the name of the book you want to change the series state of:";
             Literature literature = register.getLiteratureByTitle(bookTitle);
             if (literature != null) {
                 if (literature instanceof Book) {
                     register.seLiteratureSeriesState(literature, state);
-                    System.out.println("State of: " + literature.getTitle() + ", has been set to: " + state);
+                    message = "State of: " + literature.getTitle() + ", has been set to: " + state;
                 } else {
-                    System.out.println("The literature you are trying to change series state of is not a book, please search for a book!");
+                    message = "The literature you are trying to change series state of is not a book, please search for a book!";
                 }
             } else {
-                System.out.println("Literature not found in register");
+                message = "Literature not found in register";
             }
         }
+        return message;
     }
     
     /**
