@@ -249,8 +249,11 @@ public class UserInterface extends Application {
         String message = "";
         if (register.isEmpty()) {
             message = "Register is empty, therfore can't complete this action";
-        } else {
-            message = "Enter the name of the book you want to change the series state of:";
+        }
+        else if(bookTitle.equals("")){
+            message = "Please enter the tite of the book in the field";
+        }
+        else {
             Literature literature = register.getLiteratureByTitle(bookTitle);
             if (literature != null) {
                 if (literature instanceof Book) {
