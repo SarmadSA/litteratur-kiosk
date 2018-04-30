@@ -139,7 +139,7 @@ public class UserInterface extends Application {
         btn6.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                setSeriesScene(root);
+                setSeriesScene(root,true);
             }
         });
         
@@ -917,21 +917,32 @@ public class UserInterface extends Application {
      * Creates set series state scene.
      * 
      * @param root - the root of the stage
+     * @param state - the new series state to set the book to
      */
-    private void setSeriesScene(BorderPane root){
+    private void setSeriesScene(BorderPane root, boolean state){
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         root.setCenter(mainSene);
+        String message = "";
+        String buttonText = "";
+        if(state){
+            message = "Enter the title of the book to set it to series:";
+            buttonText = "Set series";
+        }
+        else{
+            message = "Enter the title of the book to set it to not series:";
+            buttonText = "Unseries";
+        }
         
-        Label fieldLabel = new Label("Enter the title of the book to set it to series:");
+        Label fieldLabel = new Label(message);
         TextField textField = new TextField();
         
-        Button search = new Button("Set series");
+        Button search = new Button(buttonText);
         search.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 String bookToSeries = textField.getText().trim();
-                Label message = new Label(setSeriesState(true, bookToSeries));
+                Label message = new Label(setSeriesState(state, bookToSeries));
                 mainSene.getChildren().add(message);
             }
         });
