@@ -1,5 +1,4 @@
 import java.util.Iterator;
-import java.util.Scanner;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,7 +19,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- * Represents graphical user interface that is responsible for
+ * Represents graphical user-interface that is responsible for
  * communication with the user.
  *
  * @author Sarmad, Nikita and Kristin
@@ -432,7 +431,7 @@ public class UserInterface extends Application {
 
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, textLb7, norField, btn);
     }
-
+    
     /**
      * Creates/Displays add new megazine scene.
      * 
@@ -957,5 +956,36 @@ public class UserInterface extends Application {
             }
         });
         mainSene.getChildren().addAll(fieldLabel,textField,search);
+    }
+    
+    /**
+     * Searches the register publisher and returns a message indicating 
+     * whether or not lierature by given publisher was found.
+     * 
+     * @param searchPublisher - publisher to search
+     * @return - return found/not-found message
+     */
+    private String searchByPublisher(String searchPublisher){
+        Iterator<Literature> it = this.register.getLiteraureIterator();
+        String searchMessage = "";
+        
+        if (!it.hasNext()) {
+            searchMessage = "You can't search any literature because register is empty!";
+        } 
+        else if(searchPublisher.trim().equals("")){
+            searchMessage = "field must be filled to preform this search!";
+        }
+        else {
+            Literature literaturePublisher = register.getLiteratureByPublisher(searchPublisher.trim().toLowerCase());
+
+            if (literaturePublisher != null) {
+                searchMessage = "Found results: \n" + literaturePublisher.getTitle() + ", By: "
+                                + literaturePublisher.getPublisher();
+            }
+            else {
+                searchMessage = "No literature found!";
+            }
+        }
+        return searchMessage;
     }
 }
