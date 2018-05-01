@@ -979,27 +979,27 @@ public class UserInterface extends Application {
         String searchMessage = "";
         
         if (!it.hasNext()) {
-            searchMessage = "You can't search any literature because register is empty!";
+            searchMessage = "You can't search for any publiser because register is empty!";
         } 
         else if(searchPublisher.trim().equals("")){
-            searchMessage = "field must be filled to preform this search!";
+            searchMessage = "Field must be filled to preform this search!";
         }
         else {
             Literature literaturePublisher = register.getLiteratureByPublisher(searchPublisher.trim().toLowerCase());
 
             if (literaturePublisher != null) {
-                searchMessage = "Found results: \n" + literaturePublisher.getTitle() + ", By: "
-                                + literaturePublisher.getPublisher();
+                searchMessage = "Found results:\n\nPublisher: " + literaturePublisher.getPublisher() + "\nLiterature by this publisher:\n"
+                                + literaturePublisher.getTitle() ;
             }
             else {
-                searchMessage = "No literature found!";
+                searchMessage = "No publisher found!";
             }
         }
         return searchMessage;
     }
     
         /**
-     * Creates/Displays search literature scene.
+     * Creates/Displays search literature by publisher scene.
      * 
      * @param root - the root of the stage
      */
@@ -1009,7 +1009,7 @@ public class UserInterface extends Application {
         root.setCenter(mainSene);
         
         Label sceneTitle = new Label("Search");
-        Label publisher = new Label("Literature putblisher:");
+        Label publisher = new Label("Putblisher:");
         TextField publisherField = new TextField();
         Button searchButton = new Button("Search");
         
