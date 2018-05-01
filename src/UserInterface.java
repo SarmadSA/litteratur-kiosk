@@ -61,11 +61,12 @@ public class UserInterface extends Application {
         Button btn3 = new Button("Add literature");
         Button btn4 = new Button("Remove literature");
         Button btn5 = new Button("Search register");
-        Button btn6 = new Button("Series a book");
-        Button btn7 = new Button("Unseries a book");
-        Button btn8 = new Button("Add to cart");
-        Button btn9 = new Button("Remove from cart");
-        Button btn10 = new Button("View cart");
+        Button btn6 = new Button("Search by publisher");
+        Button btn7 = new Button("Series a book");
+        Button btn8 = new Button("Unseries a book");
+        Button btn9 = new Button("Add to cart");
+        Button btn10 = new Button("Remove from cart");
+        Button btn11 = new Button("View cart");
 
         btn1.setMinWidth(buttonWidth);
         btn2.setMinWidth(buttonWidth);
@@ -77,6 +78,7 @@ public class UserInterface extends Application {
         btn8.setMinWidth(buttonWidth);
         btn9.setMinWidth(buttonWidth);
         btn10.setMinWidth(buttonWidth);
+        btn11.setMinWidth(buttonWidth);
 
         String cssLayout = "-fx-background-color: #0e6d91;";
 
@@ -88,7 +90,7 @@ public class UserInterface extends Application {
 
         //selection menu (menu to the left)
         menu.setStyle("-fx-background-color: #d7dae0;");
-        menu.getChildren().addAll(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10);
+        menu.getChildren().addAll(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10,btn11);
         menu.setPadding(new Insets(15, 12, 15, 12));
 
         root.setTop(header);
@@ -134,36 +136,43 @@ public class UserInterface extends Application {
                 searchLiteratureScene(root);
             }
         });
-                  
+        
         btn6.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                searchByPublisherScene(root);
+            }
+        });
+                  
+        btn7.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 setSeriesScene(root,true);
             }
         });
         
-        btn7.setOnAction(new EventHandler<ActionEvent>() {
+        btn8.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 setSeriesScene(root,false);
             }
         });
         
-        btn8.setOnAction(new EventHandler<ActionEvent>() {
+        btn9.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 addToCartScene(root);
             }
         });
         
-        btn9.setOnAction(new EventHandler<ActionEvent>() {
+        btn10.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 removeFromCartScene(root);
             }
         });
 
-        btn10.setOnAction(new EventHandler<ActionEvent>() {
+        btn11.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 listLiteratureScene(root, cart.getCartIterator(), "Cart is empty");
