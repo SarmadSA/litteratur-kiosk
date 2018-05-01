@@ -988,4 +988,31 @@ public class UserInterface extends Application {
         }
         return searchMessage;
     }
+    
+        /**
+     * Creates/Displays search literature scene.
+     * 
+     * @param root - the root of the stage
+     */
+    private void searchByPublisherScene(BorderPane root){
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
+        root.setCenter(mainSene);
+        
+        Label sceneTitle = new Label("Search");
+        Label publisher = new Label("Literature putblisher:");
+        TextField publisherField = new TextField();
+        Button searchButton = new Button("Search");
+        
+        searchButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String searchResults = searchByPublisher(publisherField.getText());
+                Label searchResultsMessage = new Label(searchResults);
+                mainSene.getChildren().add(searchResultsMessage);
+            }
+        });
+        
+        mainSene.getChildren().addAll(sceneTitle,publisher,publisherField,searchButton);
+    }
 }
