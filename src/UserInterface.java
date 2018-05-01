@@ -1,5 +1,4 @@
 import java.util.Iterator;
-import java.util.Scanner;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,7 +19,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- * Represents graphical user interface that is responsible for
+ * Represents graphical user-interface that is responsible for
  * communication with the user.
  *
  * @author Sarmad, Nikita and Kristin
@@ -62,11 +61,12 @@ public class UserInterface extends Application {
         Button btn3 = new Button("Add literature");
         Button btn4 = new Button("Remove literature");
         Button btn5 = new Button("Search register");
-        Button btn6 = new Button("Series a book");
-        Button btn7 = new Button("Unseries a book");
-        Button btn8 = new Button("Add to cart");
-        Button btn9 = new Button("Remove from cart");
-        Button btn10 = new Button("View cart");
+        Button btn6 = new Button("Search by publisher");
+        Button btn7 = new Button("Series a book");
+        Button btn8 = new Button("Unseries a book");
+        Button btn9 = new Button("Add to cart");
+        Button btn10 = new Button("Remove from cart");
+        Button btn11 = new Button("View cart");
 
         btn1.setMinWidth(buttonWidth);
         btn2.setMinWidth(buttonWidth);
@@ -78,6 +78,7 @@ public class UserInterface extends Application {
         btn8.setMinWidth(buttonWidth);
         btn9.setMinWidth(buttonWidth);
         btn10.setMinWidth(buttonWidth);
+        btn11.setMinWidth(buttonWidth);
 
         String cssLayout = "-fx-background-color: #0e6d91;";
 
@@ -89,7 +90,7 @@ public class UserInterface extends Application {
 
         //selection menu (menu to the left)
         menu.setStyle("-fx-background-color: #d7dae0;");
-        menu.getChildren().addAll(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10);
+        menu.getChildren().addAll(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10,btn11);
         menu.setPadding(new Insets(15, 12, 15, 12));
 
         root.setTop(header);
@@ -135,36 +136,43 @@ public class UserInterface extends Application {
                 searchLiteratureScene(root);
             }
         });
-                  
+        
         btn6.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                searchByPublisherScene(root);
+            }
+        });
+                  
+        btn7.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 setSeriesScene(root,true);
             }
         });
         
-        btn7.setOnAction(new EventHandler<ActionEvent>() {
+        btn8.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 setSeriesScene(root,false);
             }
         });
         
-        btn8.setOnAction(new EventHandler<ActionEvent>() {
+        btn9.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 addToCartScene(root);
             }
         });
         
-        btn9.setOnAction(new EventHandler<ActionEvent>() {
+        btn10.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 removeFromCartScene(root);
             }
         });
 
-        btn10.setOnAction(new EventHandler<ActionEvent>() {
+        btn11.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 listLiteratureScene(root, cart.getCartIterator(), "Cart is empty");
@@ -316,13 +324,10 @@ public class UserInterface extends Application {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.TOP_LEFT);
-
         root.setCenter(mainSene);
-
         Label textLb = new Label("Choose a litterature type");
-
+        
         MenuButton menuButton = menuButton(root);
-
         mainSene.getChildren().addAll(textLb, menuButton);
     }
     
@@ -333,7 +338,7 @@ public class UserInterface extends Application {
      * @return - returns a menu
      */
     private MenuButton menuButton(BorderPane root) {
-
+        
         MenuItem menuItem1 = new MenuItem("Book");
         MenuItem menuItem2 = new MenuItem("Newspaper");
         MenuItem menuItem3 = new MenuItem("Magazine");
@@ -365,7 +370,6 @@ public class UserInterface extends Application {
                 addBookletScene(root);
             }
         });
-
         return menuButton;
     }
     
@@ -429,10 +433,9 @@ public class UserInterface extends Application {
                 }
             }
         });
-
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, textLb7, norField, btn);
     }
-
+    
     /**
      * Creates/Displays add new megazine scene.
      * 
@@ -493,7 +496,6 @@ public class UserInterface extends Application {
                 }
             }
         });
-
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, textLb7, norField, btn);
     }
 
@@ -554,7 +556,6 @@ public class UserInterface extends Application {
                 }
             }
         });
-
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, btn);
     }
     
@@ -615,7 +616,6 @@ public class UserInterface extends Application {
                 }
             }
         });
-
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, btn);
     }
 
@@ -801,7 +801,6 @@ public class UserInterface extends Application {
                 mainSene.getChildren().add(searchResultsMessage);
             }
         });
-        
         mainSene.getChildren().addAll(sceneTitle,title,titleField,publisher,publisherField,searchButton);
     }
 
@@ -957,5 +956,62 @@ public class UserInterface extends Application {
             }
         });
         mainSene.getChildren().addAll(fieldLabel,textField,search);
+    }
+    
+    /**
+     * Searches the register publisher and returns a message indicating 
+     * whether or not lierature by given publisher was found.
+     * 
+     * @param searchPublisher - publisher to search
+     * @return - return found/not-found message
+     */
+    private String searchByPublisher(String searchPublisher){
+        Iterator<Literature> it = this.register.getLiteraureIterator();
+        String searchMessage = "";
+        
+        if (!it.hasNext()) {
+            searchMessage = "You can't search for any publiser because register is empty!";
+        } 
+        else if(searchPublisher.trim().equals("")){
+            searchMessage = "Field must be filled to preform this search!";
+        }
+        else {
+            Literature literaturePublisher = register.getLiteratureByPublisher(searchPublisher.trim().toLowerCase());
+
+            if (literaturePublisher != null) {
+                searchMessage = "Found results:\n\nPublisher: " + literaturePublisher.getPublisher() + "\nLiterature by this publisher:\n"
+                                + literaturePublisher.getTitle() ;
+            }
+            else {
+                searchMessage = "No publisher found!";
+            }
+        }
+        return searchMessage;
+    }
+    
+    /**
+     * Creates/Displays search literature by publisher scene.
+     * 
+     * @param root - the root of the stage
+     */
+    private void searchByPublisherScene(BorderPane root){
+        VBox mainSene = new VBox(8);
+        mainSene.setPadding(new Insets(15, 12, 15, 12)); //top, bottom, right, left
+        root.setCenter(mainSene);
+        
+        Label sceneTitle = new Label("Search");
+        Label publisher = new Label("Putblisher:");
+        TextField publisherField = new TextField();
+        Button searchButton = new Button("Search");
+        
+        searchButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String searchResults = searchByPublisher(publisherField.getText());
+                Label searchResultsMessage = new Label(searchResults);
+                mainSene.getChildren().add(searchResultsMessage);
+            }
+        });
+        mainSene.getChildren().addAll(sceneTitle,publisher,publisherField,searchButton);
     }
 }
