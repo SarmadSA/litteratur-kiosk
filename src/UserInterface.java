@@ -324,13 +324,10 @@ public class UserInterface extends Application {
         VBox mainSene = new VBox(8);
         mainSene.setPadding(new Insets(15, 12, 15, 12));
         mainSene.setAlignment(Pos.TOP_LEFT);
-
         root.setCenter(mainSene);
-
         Label textLb = new Label("Choose a litterature type");
-
+        
         MenuButton menuButton = menuButton(root);
-
         mainSene.getChildren().addAll(textLb, menuButton);
     }
     
@@ -341,7 +338,7 @@ public class UserInterface extends Application {
      * @return - returns a menu
      */
     private MenuButton menuButton(BorderPane root) {
-
+        
         MenuItem menuItem1 = new MenuItem("Book");
         MenuItem menuItem2 = new MenuItem("Newspaper");
         MenuItem menuItem3 = new MenuItem("Magazine");
@@ -373,7 +370,6 @@ public class UserInterface extends Application {
                 addBookletScene(root);
             }
         });
-
         return menuButton;
     }
     
@@ -437,7 +433,6 @@ public class UserInterface extends Application {
                 }
             }
         });
-
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, textLb7, norField, btn);
     }
     
@@ -501,7 +496,6 @@ public class UserInterface extends Application {
                 }
             }
         });
-
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, textLb7, norField, btn);
     }
 
@@ -562,7 +556,6 @@ public class UserInterface extends Application {
                 }
             }
         });
-
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, btn);
     }
     
@@ -623,7 +616,6 @@ public class UserInterface extends Application {
                 }
             }
         });
-
         mainSene.getChildren().addAll(menuButton, textLb1, titleField, textLb2, pubField, textLb3, catField, textLb4, lanField, textLb5, dorField, textLb6, nopField, btn);
     }
 
@@ -809,7 +801,6 @@ public class UserInterface extends Application {
                 mainSene.getChildren().add(searchResultsMessage);
             }
         });
-        
         mainSene.getChildren().addAll(sceneTitle,title,titleField,publisher,publisherField,searchButton);
     }
 
@@ -998,7 +989,7 @@ public class UserInterface extends Application {
         return searchMessage;
     }
     
-        /**
+    /**
      * Creates/Displays search literature by publisher scene.
      * 
      * @param root - the root of the stage
@@ -1021,7 +1012,6 @@ public class UserInterface extends Application {
                 mainSene.getChildren().add(searchResultsMessage);
             }
         });
-        
         mainSene.getChildren().addAll(sceneTitle,publisher,publisherField,searchButton);
     }
 }
